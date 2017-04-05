@@ -127,7 +127,7 @@ public class TolView extends World implements DoneHandler {
                 };
                 float [][] targetblockData = {
                         {3f/4, 1, Color.GREEN},
-                        {3f/4, 2, Color.GREEN},
+                        {3f/4, 2, Color.BLUE},
                         {3f/4, 3, Color.RED}
 
                 };

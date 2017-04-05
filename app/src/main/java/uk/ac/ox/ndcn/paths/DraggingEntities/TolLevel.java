@@ -98,7 +98,7 @@ public class TolLevel extends Entity{
         add(gt);
         */
 
-        for (float [] block : blockData){
+        for (float [] block : targetblockData){
             float x = block[0] * w - block_offset;
             float y = block[1] * block_height;
             world.add(
