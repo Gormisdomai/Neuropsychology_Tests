@@ -1,0 +1,145 @@
+package uk.ac.ox.ndcn.paths.DraggingEntities;
+
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.util.Pair;
+
+import java.util.ArrayList;
+
+import uk.ac.ox.ndcn.paths.Games.TolView;
+import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
+import uk.ac.ox.ndcn.paths.GeneralEntities.World;
+
+import uk.ac.ox.ndcn.paths.GeneralEntities.CollisionType;
+import uk.ac.ox.ndcn.paths.Util.CollisionFunctions;
+
+/**
+ * Created by appdev on 07/08/2016.
+ */
+public class TowerBlock extends Draggable {
+    Paint paint = new Paint();
+    protected float width = 150;
+    protected float height = 150;
+    private Rect rect;
+    protected int color;
+
+
+    public TowerBlock(World _world, float _x, float _y, float _width, float _height, int color){
+        super(_world);
+        x = _x;
+        y = _y;
+        sX = x;
+        sY = y;
+        width = _width;
+        height = _height;
+        rect = new Rect(Math.round(x), Math.round(x+width), Math.round(y), Math.round(y+height));
+        paint.setColor(color);
+        this.color = color;
+        paint.setStrokeWidth(3);
+        this.MAXDRAG = Math.min(width/3, height) -1;
+        collisionType = CollisionType.OBSTACLE;
+    }
+
+    @Override protected boolean drag_collide(float newX, float newY, Entity e){
+        //HACKY HACK
+        /*
+        |^^^^^^^|^^^^^^|      |^^^^^^^|^^^^^^|
+        |-------+------|      |-------+------|  draw twelve lines like these in the entity - these will be used to handle collision with obstacles
+        |_______|______|      |_______|______|
+         */
+
+
+       boolean collides=   e.collideLine(newX, newY, newX+width/3, newY) ||
+                e.collideLine(newX+2*width/3, newY, newX+width, newY) ||
+
+                e.collideLine(newX, newY+height/2, newX+width/3, newY+height/2) ||
+                e.collideLine(newX+2*width/3, newY+height/2, newX+width, newY+height/2) ||
+
+                e.collideLine(newX, newY+height, newX+width/3, newY+height) ||
+                e.collideLine(newX+2*width/3, newY+height, newX+width, newY+height) ||
+
+
+                e.collideLine(newX, newY, newX, newY+height) ||
+                e.collideLine(newX+width/6, newY, newX+width/6, newY+height) ||
+                e.collideLine(newX+width/3, newY, newX+width/3, newY+height) ||
+
+                e.collideLine(newX+2*width/3, newY, newX+2*width/3, newY+height) ||
+                e.collideLine(newX+5*width/6, newY, newX+5*width/6, newY+height) ||
+                e.collideLine(newX+width, newY, newX+width, newY+height)
+                ;
+        return  collides;
+    }
+    boolean firstdraw = true;
+    public void draw(Canvas canvas){
+        if (firstdraw){
+            firstdraw = false;
+            snap();
+        }
+
+        canvas.drawRect(x, y, x+width, y+height, paint);
+    }
+
+    public boolean collidePoint(float x, float y){
+        return CollisionFunctions.RectWithPoint(x, y, this.x, this.y, this.width, this.height);
+    }
+
+
+
+    public boolean collideLine(float lineX1, float lineY1, float lineX2, float lineY2) {
+        return CollisionFunctions.RectWithLine(lineX1, lineY1, lineX2, lineY2, x, y, width, height);
+    }
+
+    @Override protected void drag_start(float x, float y){
+        super.drag_start(x, y);
+        ((TolView)world).drag_lock = true;
+    }
+    @Override protected void drag_end(){
+        ((TolView)world).drag_lock = false;
+        for (Entity entity : world.entities) {
+            if (entity.collideLine(x,y+height,x+width,y+height)) {
+                if (entity.collisionType == collisionType.PEG){
+
+                    //TODO CONSTRAIN X SEPERATE TO Y
+                    if(entity!=this) {
+                        boolean downcollide = false;
+
+                        while (!downcollide){
+                            for (Entity e2 : world.entities) {
+                                if (e2 != this && e2 != entity) {
+                                    if (drag_collide(x, y + 1, e2)) {
+                                        if(e2.collisionType != collisionType.PEG)
+                                            downcollide = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!downcollide) y += 1;
+                        }
+                        x = entity.x-width/2;
+
+                        return;
+                    }
+
+                }
+            }
+
+        };
+        //reset position
+        x = sX; y = sY;
+    }
+
+    public void snap() { drag_end();};
+
+    @Override public boolean equals(Object t){
+       if (t instanceof TowerBlock)
+            return ((TowerBlock) t).color == color;
+        else return false;
+    }
+    @Override public int hashCode(){
+        return color;
+    }
+}

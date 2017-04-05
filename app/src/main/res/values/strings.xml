@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Neuropsychology Tests</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_num_paths">Paths</string>
+    <string name="title_activity_main">Paths</string>
+    <string name="appearance">Appearance</string>
+    <string name="line_width">Line Width</string>
+    <string name="blob_radius">Blob Radius</string>
+    <string name="timing">Timing</string>
+    <string name="complexity">Complexity</string>
+    <string name="shape_span_number_of_shapes">Number of Shapes for Shape-Span</string>
+
+    <string name="trail_making_letters_question">Include Letters in Trail Making?</string>
+    <string name="trail_making_feedback_question">Give Player Feedback in Trail Making?</string>
+
+    <string name="trail_making_include">Alternate Letters and Numbers</string>
+    <string name="trail_making_exclude">Numbers Only</string>
+
+    <string name="trail_making_feedback_no">Allow Illegal Moves</string>
+    <string name="trail_making_feedback_yes">Do Not Allow Illegal Moves</string>
+
+    <string name="num_paths_timing">Timeout for Option Generation</string>
+    <string name="switch_paths_timing">Timeout for T-Maze</string>
+    <string name="fluency_timing">Timeout for Design Fluency</string>
+    <string name="complex_figure_timing">Timeout for Complex Figure</string>
+    <string name="trail_timing">Timeout for Trail Making</string>
+
+<!-- Some constants for different game modes -->
+
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_menutest">Menutest</string>
+</resources>
+

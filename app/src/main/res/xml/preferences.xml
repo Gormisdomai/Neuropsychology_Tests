@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:key="appearance_category"
+        android:title="@string/appearance"
+        android:persistent="false">
+
+        <EditTextPreference
+            android:key="line_width"
+            android:title="@string/line_width"
+            android:numeric="integer"
+            android:maxLength="2"
+            android:defaultValue="6"
+            />
+        <EditTextPreference
+            android:key="blob_radius"
+            android:title="@string/blob_radius"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="4"
+            />
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:key="timing_category"
+        android:title="@string/timing"
+        android:persistent="false">
+
+        <EditTextPreference
+            android:key="num_paths_timing"
+            android:title="@string/num_paths_timing"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="120"
+            />
+        <EditTextPreference
+            android:key="switch_paths_timing"
+            android:title="@string/switch_paths_timing"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="120"
+            />
+        />
+        <EditTextPreference
+            android:key="fluency_timing"
+            android:title="@string/fluency_timing"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="120"
+            />
+        <EditTextPreference
+            android:key="complex_figure_timing"
+            android:title="@string/complex_figure_timing"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="120"
+            />
+        <EditTextPreference
+            android:key="trail_timing"
+            android:title="@string/trail_timing"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="120"
+            />
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="complexity_category"
+        android:title="@string/complexity"
+        android:persistent="false">
+
+        <EditTextPreference
+            android:key="shape_span_count"
+            android:title="@string/shape_span_number_of_shapes"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="6"
+            />
+        <SwitchPreference
+            android:key="trail_letters"
+            android:title="@string/trail_making_letters_question"
+            android:summaryOn="@string/trail_making_include"
+            android:summaryOff="@string/trail_making_exclude"
+            android:defaultValue="false"
+            />
+        <SwitchPreference
+            android:key="trail_feedback"
+            android:title="@string/trail_making_feedback_question"
+            android:summaryOn="@string/trail_making_feedback_yes"
+            android:summaryOff="@string/trail_making_feedback_no"
+            android:defaultValue="false"
+            />
+
+    </PreferenceScreen>
+</PreferenceScreen>
