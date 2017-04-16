@@ -34,7 +34,7 @@ public class TrailMakingView extends World {
         w = _w;
         h = _h;
         Trail t = new Trail(10, !prefs.getBoolean("trail_letters", false), prefs.getBoolean("trail_feedback",false), 0, 0, w, h, this);
-        line = new TrailLine(this, new OldLines(user, mDBApi, w ,h, prefs, GAMEID), t);
+        line = new TrailLine(this, (OldLines)add(new OldLines(user, mDBApi, w ,h, prefs, GAMEID)), t);
         add(line);
         add(t);
         timeout = Integer.parseInt(prefs.getString("trail_timing", "240"))* 1000;

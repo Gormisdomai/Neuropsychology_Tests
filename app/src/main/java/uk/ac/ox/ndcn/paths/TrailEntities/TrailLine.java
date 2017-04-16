@@ -67,7 +67,11 @@ public class TrailLine extends Entity {
         greyline.setStrokeCap(Paint.Cap.ROUND);
         greyline.setStrokeWidth(Integer.parseInt(prefs.getString("line_width", "6")));
 
+        JOIN_TOLERANCE = Integer.parseInt(prefs.getString("blob_radius", "6"))*10;
+
         history = _history;
+
+        history.line = greyline;
         t = _t;
 
     }
@@ -95,12 +99,16 @@ public class TrailLine extends Entity {
     }
 
     private float mX, mY;
+    private float lastX, lastY;
     private static final float TOUCH_TOLERANCE = 4;
-
+    private float JOIN_TOLERANCE;
     private void touch_start(float x, float y) {
         if (start == -1){
             start = System.currentTimeMillis();
+            lastX = mX = x; lastY = mY = y;
+
         }
+
         dead = false;
         win = false;
         line.setColor(Color.YELLOW);
@@ -109,9 +117,14 @@ public class TrailLine extends Entity {
         path.reset();
         points.reset();
         path.moveTo(x, y);
-        points.add(x, y,System.currentTimeMillis());
+        points.add(x, y, System.currentTimeMillis());
+        if (Math.abs(lastX - x) > JOIN_TOLERANCE || Math.abs(lastY - y) > JOIN_TOLERANCE) {
+            dead = true;
+            touch_up();
+        }
         mX = x;
         mY = y;
+
         return;
 
 
@@ -132,11 +145,15 @@ public class TrailLine extends Entity {
                             points.end = System.currentTimeMillis();
                             points.addGoal(((uk.ac.ox.ndcn.paths.Util.idable) entity).getId());
                             entity.handleCollision(this);
+                            lastX = entity.x;
+                            lastY = entity.y;
                             break;
                         case TRAILGOAL:
                             Log.d("Trail Line", "Collide");
                             entity.handleCollision(this);
                             points.addGoal(((uk.ac.ox.ndcn.paths.Util.idable) entity).getId());
+                            lastX = entity.x;
+                            lastY = entity.y;
                             break;
 
 
@@ -158,13 +175,17 @@ public class TrailLine extends Entity {
 
     }
     private void touch_up() {
-        if (win && !dead) {
-            path.lineTo(mX, mY);
+        if (!dead) {
             history.add(new Path(path), new TrailData(points));
-            t.reset();
+            if (win) {
+                path.lineTo(mX, mY);
+                t.reset();
+                
+            }
         }
         path.reset();
         points.reset();
+
     }
 
 
