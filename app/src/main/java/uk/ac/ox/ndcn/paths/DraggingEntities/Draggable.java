@@ -51,73 +51,86 @@ public class Draggable extends Entity {
 
     private float mX, mY;
     protected float sX, sY;
+    private float oX, oY;
+    protected float MAXDRAG = 100;
 
     protected void drag_start(float x, float y){
         mX = x;
         mY = y;
         sX = this.x;
         sY = this.y;
+        oX = sX-mX;
+        oY = sY-mY;
     }
     protected boolean drag_collide(float newX, float newY, Entity e){
         return false;
     }
-    protected float MAXDRAG = 100;
     private void drag_move(float x, float y){
 
-        float dx = x - mX;
-        float dy = y - mY;
+        float dx = x - this.x+oX;
+        float dy = y - this.y+oY;
 
-        if (Math.abs(dx) > MAXDRAG || Math.abs(dy) > MAXDRAG){
-            //scale dx & dy appropriately, do not return.
-            if(Math.abs(dx) > Math.abs(dy)){
-                float scale = Math.abs(dx)/MAXDRAG;
-                dx = MAXDRAG * Math.signum(dx);
-                dy = dy/scale;
-            }
-            else{
-                float scale = Math.abs(dy)/MAXDRAG;
-                dy = MAXDRAG * Math.signum(dy);
-                dx = dx/scale;
-            }
-        }
         boolean collidesXY = false;
-            for (Entity entity : world.entities) {
-                if (drag_collide(this.x+dx, this.y+dy, entity)) {
-                    if (entity.collisionType == collisionType.OBSTACLE || entity.collisionType == collisionType.PEG){
+        boolean collidesX = false;
+        boolean collidesY = false;
 
-                        //TODO CONSTRAIN X SEPERATE TO Y
-                        if(entity!=this) {
-                            collidesXY = true;
-                        }
-                    } 
+
+
+        for (Entity entity : world.entities) {
+            if (drag_collide(this.x+dx , this.y+dy , entity)) {
+                if (entity.collisionType == collisionType.OBSTACLE || entity.collisionType == collisionType.PEG) {
+
+                    if (entity != this) {
+                        collidesXY = true;
+                    }
                 }
+            }
 
-            };
+        }
+        ;
 
-        if (collidesXY){
-            /* TODO choose which of these to do first
-            boolean collidesX = false;
+        if (collidesXY) {
+            //Constrain X seperate to Y
+
+            //X
             for (Entity entity : world.entities) {
-                if (drag_collide(this.x+dx, this.y+dy, entity)) {
-                    if (entity.collisionType == collisionType.OBSTACLE){
+                if (drag_collide(this.x+dx , this.y , entity)) {
+                    if (entity.collisionType == collisionType.OBSTACLE || entity.collisionType == collisionType.PEG) {
 
-                        //TODO CONSTRAIN X SEPERATE TO Y
-                        collidesX = true;
+                        if (entity != this) {
+                            collidesX = true;
+                        }
                     }
                 }
 
-            };
-            */
+            }
+            ;
+            if(!collidesX){
+                this.x += dx;
+            }
 
+
+            //Y
+            for (Entity entity : world.entities) {
+                if (drag_collide(this.x, this.y + dy, entity)) {
+                    if (entity.collisionType == collisionType.OBSTACLE || entity.collisionType == collisionType.PEG) {
+
+                        if (entity != this) {
+                            collidesY = true;
+                        }
+                    }
+                }
+
+            }
+            ;
+            if(!collidesY){
+                this.y += dy;
+            }
         }
         else{
+            // Move normally
             this.x += dx;
             this.y += dy;
-
-
-
-            mX = x;
-            mY = y;
         }
 
 

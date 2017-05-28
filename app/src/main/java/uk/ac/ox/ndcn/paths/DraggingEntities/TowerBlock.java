@@ -23,6 +23,7 @@ import uk.ac.ox.ndcn.paths.Util.CollisionFunctions;
 public class TowerBlock extends Draggable {
     Paint paint = new Paint();
     protected float width = 150;
+    protected float thirdWidth = width/3;
     protected float height = 150;
     private Rect rect;
     protected int color;
@@ -35,6 +36,7 @@ public class TowerBlock extends Draggable {
         sX = x;
         sY = y;
         width = _width;
+        thirdWidth = width/3;
         height = _height;
         rect = new Rect(Math.round(x), Math.round(x+width), Math.round(y), Math.round(y+height));
         paint.setColor(color);
@@ -47,29 +49,27 @@ public class TowerBlock extends Draggable {
     @Override protected boolean drag_collide(float newX, float newY, Entity e){
         //HACKY HACK
         /*
-        |^^^^^^^|^^^^^^|      |^^^^^^^|^^^^^^|
-        |-------+------|      |-------+------|  draw twelve lines like these in the entity - these will be used to handle collision with obstacles
-        |_______|______|      |_______|______|
+
+        *                *    *                *
+         |^^^^^^^^^^^^^^|      |^^^^^^^^^^^^^^|
+         |              |      |              |  entity approximated as two rectangles = 8 corners
+         |______________|      |______________|     to move the entity, first check if any of these corners
+        *                *    *                *    would trace a path which collides with another entity
+
+
          */
 
 
-       boolean collides=   e.collideLine(newX, newY, newX+width/3, newY) ||
-                e.collideLine(newX+2*width/3, newY, newX+width, newY) ||
+       boolean collides=
+                e.collideLine(x, y, newX, newY) ||
+                e.collideLine(x + thirdWidth, y, newX+thirdWidth, newY) ||
+                e.collideLine(x, y+height, newX, newY+height) ||
+                e.collideLine(x + thirdWidth, y+height, newX+thirdWidth, newY+height) ||
 
-                e.collideLine(newX, newY+height/2, newX+width/3, newY+height/2) ||
-                e.collideLine(newX+2*width/3, newY+height/2, newX+width, newY+height/2) ||
-
-                e.collideLine(newX, newY+height, newX+width/3, newY+height) ||
-                e.collideLine(newX+2*width/3, newY+height, newX+width, newY+height) ||
-
-
-                e.collideLine(newX, newY, newX, newY+height) ||
-                e.collideLine(newX+width/6, newY, newX+width/6, newY+height) ||
-                e.collideLine(newX+width/3, newY, newX+width/3, newY+height) ||
-
-                e.collideLine(newX+2*width/3, newY, newX+2*width/3, newY+height) ||
-                e.collideLine(newX+5*width/6, newY, newX+5*width/6, newY+height) ||
-                e.collideLine(newX+width, newY, newX+width, newY+height)
+                e.collideLine(2*thirdWidth + x, y, 2*thirdWidth + newX, newY) ||
+                e.collideLine(2*thirdWidth + x + thirdWidth, y, 2*thirdWidth + newX+thirdWidth, newY) ||
+                e.collideLine(2*thirdWidth + x, y+height, 2*thirdWidth + newX, newY+height) ||
+                e.collideLine(2*thirdWidth + x + thirdWidth, y+height, 2*thirdWidth + newX+thirdWidth, newY+height)
                 ;
         return  collides;
     }

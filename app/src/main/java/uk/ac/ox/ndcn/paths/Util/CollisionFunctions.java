@@ -50,6 +50,7 @@ public class CollisionFunctions {
     private static final int OUT_BOTTOM = 8;
     public static boolean RectWithLine(float lineX1, float lineY1, float lineX2, float lineY2, float x, float y, float width, float height)
     {
+
         int out1, out2;
         if ((out2 = outcode(lineX2, lineY2, x, y, width, height)) == 0) {
             return true;
