@@ -132,4 +132,10 @@ public class OldLines extends Entity {
         pathDatas.add(d);
         cacheCanvas.drawPath(p, line);
     }
+
+    public void reset(){
+        paths.clear();
+        pathDatas.clear();
+        cache.eraseColor(Color.TRANSPARENT);
+    }
 }

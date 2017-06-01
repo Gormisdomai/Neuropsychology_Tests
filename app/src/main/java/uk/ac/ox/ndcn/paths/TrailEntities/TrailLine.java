@@ -102,29 +102,46 @@ public class TrailLine extends Entity {
     private float lastX, lastY;
     private static final float TOUCH_TOLERANCE = 4;
     private float JOIN_TOLERANCE;
+    private boolean begin = true;
     private void touch_start(float x, float y) {
-        if (start == -1){
+        if (start == -1) {
             start = System.currentTimeMillis();
-            lastX = mX = x; lastY = mY = y;
-
+            points.start = (System.currentTimeMillis());
         }
+
 
         dead = false;
         win = false;
         line.setColor(Color.YELLOW);
-        points.start = (System.currentTimeMillis());
 
-        path.reset();
-        points.reset();
-        path.moveTo(x, y);
-        points.add(x, y, System.currentTimeMillis());
-        if (Math.abs(lastX - x) > JOIN_TOLERANCE || Math.abs(lastY - y) > JOIN_TOLERANCE) {
-            dead = true;
-            touch_up();
+        if (begin){
+            for (Entity entity : world.entities) {
+                if (entity.collidePoint(x, y)) {
+                    if (entity.collisionType == collisionType.TRAILGOAL || entity.collisionType == collisionType.GOAL ) {
+                        lastX = mX = x; lastY = mY = y;
+                        begin = false;
+                    }
+                }
+            }
+
         }
-        mX = x;
-        mY = y;
 
+
+        if ((Math.abs(lastX - x) <= JOIN_TOLERANCE && Math.abs(lastY - y) <= JOIN_TOLERANCE)) {
+
+                        path.reset();
+                        points.reset();
+                        path.moveTo(x, y);
+                        points.add(x, y, System.currentTimeMillis());
+                        mX = x;
+                        mY = y;
+
+                        return;
+
+        }
+
+        dead = true;
+        touch_up();
         return;
 
 
@@ -176,10 +193,12 @@ public class TrailLine extends Entity {
     }
     private void touch_up() {
         if (!dead) {
+            path.lineTo(mX, mY);
             history.add(new Path(path), new TrailData(points));
             if (win) {
-                path.lineTo(mX, mY);
+                history.reset();
                 t.reset();
+                begin = true;
                 
             }
         }

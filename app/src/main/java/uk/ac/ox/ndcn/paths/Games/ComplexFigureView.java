@@ -12,7 +12,8 @@ import com.dropbox.client2.DropboxAPI;
 import uk.ac.ox.ndcn.paths.ComplexFigureEntities.CanvasLine;
 import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
-import uk.ac.ox.ndcn.paths.ComplexFigureEntities.Image;
+import uk.ac.ox.ndcn.paths.Util.ClickableImage;
+import uk.ac.ox.ndcn.paths.Util.Image;
 import uk.ac.ox.ndcn.paths.GeneralEntities.OpacityBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.MazeEntities.OldLines;
@@ -51,7 +52,7 @@ public class ComplexFigureView extends World implements DoneHandler {
         setBackgroundColor(Color.WHITE);
         history = (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID));
         line = (CanvasLine) add(new CanvasLine(this, history));
-        doneButton = (DoneButton)add(new DoneButton(0, 9*h/10, Math.max(w / 7, 100), h/10, this));
+        doneButton = (DoneButton)add(new DoneButton(0,  h-w/16, Math.max(h / 7, 100), w/16, this));
         timeout = Integer.parseInt(prefs.getString("complex_figure_timing", "240"))* 1000;
     }
     public void done(){

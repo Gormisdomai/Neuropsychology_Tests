@@ -1,4 +1,4 @@
-package uk.ac.ox.ndcn.paths.ComplexFigureEntities;
+package uk.ac.ox.ndcn.paths.Util;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,6 +21,7 @@ public class Image extends Entity implements DoneHandler {
 
     public void done() {
         visible = false;
+        source.recycle();
     }
 
     public Image(float _x, int _y, int _width, int _height, Bitmap _source){

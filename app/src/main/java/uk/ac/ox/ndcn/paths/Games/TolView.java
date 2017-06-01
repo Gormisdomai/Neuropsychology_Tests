@@ -5,7 +5,6 @@ package uk.ac.ox.ndcn.paths.Games;
  */
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,27 +12,18 @@ import android.graphics.Paint;
 import android.preference.PreferenceManager;
 
 import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
-import uk.ac.ox.ndcn.paths.DraggingEntities.TargetBlock;
-import uk.ac.ox.ndcn.paths.DraggingEntities.TargetObstacle;
 
 import com.dropbox.client2.DropboxAPI;
 
 import uk.ac.ox.ndcn.paths.DraggingEntities.TargetPeg;
 import uk.ac.ox.ndcn.paths.DraggingEntities.TolLevel;
-import uk.ac.ox.ndcn.paths.DraggingEntities.TowerBlock;
 import uk.ac.ox.ndcn.paths.DraggingEntities.Peg;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
-import uk.ac.ox.ndcn.paths.MazeEntities.Obstacle;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import uk.ac.ox.ndcn.paths.ComplexFigureEntities.Image;
-import uk.ac.ox.ndcn.paths.R;
+import uk.ac.ox.ndcn.paths.Util.Image;
 
 public class TolView extends World implements DoneHandler {
 
@@ -47,13 +37,12 @@ public class TolView extends World implements DoneHandler {
     public ArrayList<TargetPeg> targetPegs = new ArrayList<>();
 
 
-    Bitmap tol_target;
     Image target;
 
 
     public TolView(Activity context, String _user, DropboxAPI mDBApi) {
         super(context, _user, mDBApi);
-        tol_target = BitmapFactory.decodeResource(getResources(), R.drawable.tol_target);
+
 
     }
     private boolean inited = false;
@@ -69,15 +58,15 @@ public class TolView extends World implements DoneHandler {
                 {3f/4,4},
         };
         float [][] blockData = {
-                {3f/4, 3, Color.RED},
+                {3f/4, 1, Color.RED},
                 {1f/2, 1, Color.BLUE},
-                {1f/4, 4, Color.GREEN},
+                {1f/4, 1, Color.GREEN},
 
         };
         float [][] targetblockData = {
-                {3f/4, 3, Color.GREEN},
+                {3f/4, 1, Color.GREEN},
                 {1f/2, 1, Color.BLUE},
-                {1f/4, 4, Color.RED}
+                {1f/4, 1, Color.RED}
 
         };
         (new TolLevel(pegData, blockData, targetblockData)).build(this);
