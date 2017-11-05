@@ -48,7 +48,7 @@ public class NumPathsView extends World implements DoneHandler{
         tutorial_mode = true;
         ArrayList<Integer> l = new ArrayList<>();
         l.add(R.drawable.gen_4);
-        l.add(R.drawable.gen_3);
+        //l.add(R.drawable.gen_3);
         l.add(R.drawable.gen_2);
         l.add(R.drawable.gen_1);
         add(new InstructionSlideShow(w, h, l, this, this, getResources()));
