@@ -30,7 +30,7 @@ public class TolLevel extends Entity{
     public void build(TolView world){
         int w = world.w;
         int h = world.h;
-        float block_height = 75;
+        float block_height = 50;
         float base_offset = 20;
         float peg_width = 20;
         float peg_offset = peg_width/2f;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <EditTextPreference
+            android:key="shape_span_count"
+            android:title="@string/shape_span_number_of_shapes"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="6"
+            />
+</PreferenceScreen>

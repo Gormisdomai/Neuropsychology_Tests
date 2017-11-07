@@ -1,27 +1,38 @@
 package uk.ac.ox.ndcn.paths;
 
 import android.app.Activity;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Intent;
+import android.view.View;
+import android.view.ViewGroup;
+
+import uk.ac.ox.ndcn.paths.Games.GameLauncher;
 
 
 public class SettingsActivity extends Activity {
+    //TODO rewrite this so that it launches an app of your choice after choices have been made. call that app from GameLauncher.
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Display the fragment as the main content.
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
-                .commit();
-    }
+        //map the gameIDs to relevant settings to be displayed.
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
-        return true;
+        super.onCreate(savedInstanceState);
+
+        //setcontent view and then an app luanch button.
+        // Display the fragment as the main content.
+        SettingsFragment frag = new SettingsFragment();
+        Bundle args = new Bundle();
+        args.putString("EXTRA_GAMEID", getIntent().getStringExtra("EXTRA_GAMEID"));
+        frag.setArguments(args);
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, frag)
+                .commit();
     }
 
     @Override
@@ -38,4 +49,5 @@ public class SettingsActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

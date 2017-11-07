@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <EditTextPreference
+            android:key="line_width"
+            android:title="@string/line_width"
+            android:numeric="integer"
+            android:maxLength="2"
+            android:defaultValue="6"
+            />
+
+        <EditTextPreference
+            android:key="trail_timing"
+            android:title="@string/trail_timing"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:defaultValue="120"
+            />
+
+        <SwitchPreference
+            android:key="trail_letters"
+            android:title="@string/trail_making_letters_question"
+            android:summaryOn="@string/trail_making_include"
+            android:summaryOff="@string/trail_making_exclude"
+            android:defaultValue="false"
+            />
+        <SwitchPreference
+            android:key="trail_feedback"
+            android:title="@string/trail_making_feedback_question"
+            android:summaryOn="@string/trail_making_feedback_yes"
+            android:summaryOff="@string/trail_making_feedback_no"
+            android:defaultValue="false"
+            />
+
+</PreferenceScreen>

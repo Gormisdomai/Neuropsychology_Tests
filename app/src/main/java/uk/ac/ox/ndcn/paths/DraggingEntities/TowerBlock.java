@@ -47,7 +47,7 @@ public class TowerBlock extends Draggable {
     }
 
     @Override protected boolean drag_collide(float newX, float newY, Entity e){
-        //HACKY HACK
+        //Collision Code Explained
         /*
 
         *                *    *                *

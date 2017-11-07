@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ListView;
 
@@ -24,15 +23,6 @@ import com.dropbox.client2.android.AuthActivity;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 
-import uk.ac.ox.ndcn.paths.Games.ComplexFigureView;
-import uk.ac.ox.ndcn.paths.Games.FluencyView;
-import uk.ac.ox.ndcn.paths.Games.GameLauncher;
-import uk.ac.ox.ndcn.paths.Games.NumPathsView;
-import uk.ac.ox.ndcn.paths.Games.NumericalDigitSpanView;
-import uk.ac.ox.ndcn.paths.Games.SwitchPathsView;
-import uk.ac.ox.ndcn.paths.Games.TolView;
-import uk.ac.ox.ndcn.paths.Games.TrailMakingView;
-import uk.ac.ox.ndcn.paths.Games.VisualDigitSpanView;
 import uk.ac.ox.ndcn.paths.Menutest.CustomList;
 
 
@@ -72,27 +62,7 @@ public class MainActivity extends AppCompatActivity {
     View view;
 
     ListView list;
-    String[] gameIDs = {
-            NumPathsView.GAMEID,
-            SwitchPathsView.GAMEID,
-            TrailMakingView.GAMEID,
-            FluencyView.GAMEID,
-            ComplexFigureView.GAMEID,
-            TolView.GAMEID,
-            VisualDigitSpanView.GAMEID,
-            NumericalDigitSpanView.GAMEID
-    } ;
 
-    String[] gameNames = {
-            "Option Generation",
-            "Option Switching",
-            "Trail Making",
-            "Design Fluency",
-            "Complex Figure",
-            "Tower of London",
-            "Shape Span",
-            "Digit Span"
-    } ;
 
     /*public void launchPaths(View oldview){ launch(NumPathsView.GAMEID); }
     public void launchTol(View oldview) {launch(TolView.GAMEID);}
@@ -140,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         CustomList adapter = new
-                CustomList(MainActivity.this, gameNames, gameIDs);
+                CustomList(MainActivity.this, GamesList.gameNames,  GamesList.gameIDs);
         list=(ListView)findViewById(R.id.list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -148,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                launch(gameIDs[+position]);
+                launch(GamesList.gameIDs[+position]);
             }
         });
 
@@ -321,11 +291,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void launch(String GameID){
-        Intent intent = new Intent(this, GameLauncher.class);
-        EditText usernameField = (EditText)findViewById(R.id.editText);
+        Intent intent = new Intent(this, SettingsActivity.class);
+        //Intent intent = new Intent(this, GameLauncher.class);
+        /*EditText usernameField = (EditText)findViewById(R.id.editText);
         String username = usernameField == null ? "" : usernameField.getText().toString();
 
-        intent.putExtra("EXTRA_UID", username);
+        intent.putExtra("EXTRA_UID", username);*/
         intent.putExtra("EXTRA_GAMEID", GameID);
         startActivity(intent);
     }
