@@ -2,6 +2,7 @@ package uk.ac.ox.ndcn.paths;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.*;
@@ -38,6 +39,7 @@ public class SettingsFragment extends PreferenceFragment{
 
 
         Button btn = new Button(getActivity().getApplicationContext());
+        btn.setBackgroundColor(Color.RED);
         btn.setText("Start Game");
 
         v.addView(btn);

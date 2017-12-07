@@ -8,17 +8,17 @@
     <string name="line_width">Line Width</string>
     <string name="blob_radius">Blob Radius</string>
     <string name="timing">Timing</string>
-    <string name="complexity">Complexity</string>
+    <string name="cßomplexity">Complexity</string>
     <string name="shape_span_number_of_shapes">Number of Shapes for Shape-Span</string>
 
-    <string name="trail_making_letters_question">Include Letters in Trail Making?</string>
-    <string name="trail_making_feedback_question">Give Player Feedback in Trail Making?</string>
+    <string name="trail_making_letters_question">Exclude Letters in Trail Making?</string>
+    <string name="trail_making_feedback_question">Allow illegal moves in Trail Making?</string>
 
-    <string name="trail_making_include">Alternate Letters and Numbers</string>
-    <string name="trail_making_exclude">Numbers Only</string>
+    <string name="trail_making_include">Numbers Only</string>
+    <string name="trail_making_exclude">Alternate Letters and Numbers</string>
 
-    <string name="trail_making_feedback_no">Allow Illegal Moves</string>
-    <string name="trail_making_feedback_yes">Do Not Allow Illegal Moves</string>
+    <string name="trail_making_feedback_no">Do Not Allow Illegal Moves</string>
+    <string name="trail_making_feedback_yes">Allow Illegal Moves</string>
 
     <string name="num_paths_timing">Timeout for Option Generation</string>
     <string name="switch_paths_timing">Timeout for T-Maze</string>
