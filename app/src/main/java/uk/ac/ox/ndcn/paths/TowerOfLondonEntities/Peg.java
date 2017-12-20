@@ -1,6 +1,4 @@
-package uk.ac.ox.ndcn.paths.DraggingEntities;
-
-import android.graphics.Color;
+package uk.ac.ox.ndcn.paths.TowerOfLondonEntities;
 
 import java.util.ArrayList;
 import java.util.Collections;

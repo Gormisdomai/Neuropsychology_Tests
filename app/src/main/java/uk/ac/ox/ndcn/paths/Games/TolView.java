@@ -15,9 +15,9 @@ import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
 
 import com.dropbox.client2.DropboxAPI;
 
-import uk.ac.ox.ndcn.paths.DraggingEntities.TargetPeg;
-import uk.ac.ox.ndcn.paths.DraggingEntities.TolLevel;
-import uk.ac.ox.ndcn.paths.DraggingEntities.Peg;
+import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TargetPeg;
+import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TolLevel;
+import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.Peg;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
@@ -123,7 +123,76 @@ public class TolView extends World implements DoneHandler {
                 (new TolLevel(pegData, blockData, targetblockData)).build(this);
                 add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
                 break;
+            case 2:
+                removeAll(entities);
+                float [][] pegData1 = {
+                        {1f/5,3},
+                        {2f/5,1},
+                        {3f/5,4},
+                        {4f/5,4},
+                };
+                float [][] blockData1 = {
+                        {1f/5, 3, Color.GREEN},
+                        {2f/5, 2, Color.BLUE},
+                        {3f/5, 1, Color.RED},
+                        {4f/5, 1, Color.YELLOW},
+
+                };
+                float [][] targetblockData1 = {
+                        {1f/5, 1, Color.YELLOW},
+                        {2f/5, 1, Color.GREEN},
+                        {3f/5, 2, Color.BLUE},
+                        {4f/5, 3, Color.RED}
+
+                };
+                (new TolLevel(pegData1, blockData1, targetblockData1)).build(this);
+                add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+                break;
+            case 3:
+                removeAll(entities);
+                float [][] pegData2 = {
+                        {1f/4,3},
+                        {1f/2,1},
+                        {3f/4,4},
+                };
+                float [][] blockData2 = {
+                        {3f/4, 3, Color.GREEN},
+                        {3f/4, 2, Color.RED},
+                        {3f/4, 1, Color.BLUE},
+
+                };
+                float [][] targetblockData2 = {
+                        {3f/4, 1, Color.GREEN},
+                        {3f/4, 2, Color.BLUE},
+                        {3f/4, 3, Color.RED}
+
+                };
+                (new TolLevel(pegData2, blockData2, targetblockData2)).build(this);
+                add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+                break;
+            case 4:
+                removeAll(entities);
+                float [][] pegData3 = {
+                        {1f/4,3},
+                        {3f/4,4},
+                };
+                float [][] blockData3 = {
+                        {3f/4, 3, Color.GREEN},
+                        {3f/4, 2, Color.BLUE},
+                        {3f/4, 1, Color.RED},
+
+                };
+                float [][] targetblockData3 = {
+                        {3f/4, 1, Color.GREEN},
+                        {3f/4, 2, Color.BLUE},
+                        {3f/4, 3, Color.RED}
+
+                };
+                (new TolLevel(pegData3, blockData3, targetblockData3)).build(this);
+                add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+                break;
         }
+
     }
 
 

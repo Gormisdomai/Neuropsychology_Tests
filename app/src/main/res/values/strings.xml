@@ -8,7 +8,7 @@
     <string name="line_width">Line Width</string>
     <string name="blob_radius">Blob Radius</string>
     <string name="timing">Timing</string>
-    <string name="cßomplexity">Complexity</string>
+    <string name="complexity">Complexity</string>
     <string name="shape_span_number_of_shapes">Number of Shapes for Shape-Span</string>
 
     <string name="trail_making_letters_question">Exclude Letters in Trail Making?</string>

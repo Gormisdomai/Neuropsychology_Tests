@@ -1,6 +1,4 @@
-package uk.ac.ox.ndcn.paths.DraggingEntities;
-
-import android.graphics.Color;
+package uk.ac.ox.ndcn.paths.TowerOfLondonEntities;
 
 import uk.ac.ox.ndcn.paths.Games.TolView;
 

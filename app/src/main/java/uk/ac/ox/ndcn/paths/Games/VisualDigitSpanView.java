@@ -5,7 +5,6 @@ package uk.ac.ox.ndcn.paths.Games;
  */
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,12 +13,8 @@ import android.preference.PreferenceManager;
 
 import com.dropbox.client2.DropboxAPI;
 
-import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Button;
 import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Noisepad;
-import uk.ac.ox.ndcn.paths.DraggingEntities.TowerBlock;
-import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Keypad;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
-import uk.ac.ox.ndcn.paths.MazeEntities.Obstacle;
 
 public class VisualDigitSpanView extends World {
 

@@ -1,4 +1,4 @@
-package uk.ac.ox.ndcn.paths.DraggingEntities;
+package uk.ac.ox.ndcn.paths.TowerOfLondonEntities;
 
 import android.util.Log;
 import android.view.MotionEvent;

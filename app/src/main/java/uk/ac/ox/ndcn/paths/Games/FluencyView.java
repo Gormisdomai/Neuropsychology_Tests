@@ -5,13 +5,11 @@ package uk.ac.ox.ndcn.paths.Games;
  */
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.dropbox.client2.DropboxAPI;
 
-import uk.ac.ox.ndcn.paths.DraggingEntities.TowerBlock;
 import uk.ac.ox.ndcn.paths.GeneralEntities.OpacityBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.Timer;

@@ -5,29 +5,20 @@ package uk.ac.ox.ndcn.paths.Games;
  */
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.dropbox.client2.DropboxAPI;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
-import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Button;
-import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Noisepad;
-import uk.ac.ox.ndcn.paths.DraggingEntities.TowerBlock;
 import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Keypad;
 import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.DigitDisplay;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
-import uk.ac.ox.ndcn.paths.GeneralEntities.InputBox;
-import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
-import uk.ac.ox.ndcn.paths.MazeEntities.Obstacle;
 
 public class NumericalDigitSpanView extends World {
 

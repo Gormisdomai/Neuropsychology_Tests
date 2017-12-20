@@ -1,4 +1,4 @@
-package uk.ac.ox.ndcn.paths.DraggingEntities;
+package uk.ac.ox.ndcn.paths.TowerOfLondonEntities;
 
 import uk.ac.ox.ndcn.paths.GeneralEntities.CollisionType;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
