@@ -22,7 +22,9 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TolLevelGenerator;
 import uk.ac.ox.ndcn.paths.Util.Image;
 
 public class TolView extends World implements DoneHandler {
@@ -52,7 +54,7 @@ public class TolView extends World implements DoneHandler {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         w = _w;
         h = _h;
-        float [][] pegData = {
+        /*float [][] pegData = {
                 {1f/4,3},
                 {1f/2,1},
                 {3f/4,4},
@@ -69,8 +71,14 @@ public class TolView extends World implements DoneHandler {
                 {1f/4, 1, Color.RED}
 
         };
-        (new TolLevel(pegData, blockData, targetblockData)).build(this);
-        add(new DoneButton(0, 0, Math.max(w / 7, 100), h/16, this));
+        (new TolLevel(pegData, blockData, targetblockData)).build(this);*/
+        Random random = new Random();
+        int [] heights = {3,1,4};
+        float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
+        TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
+        levelGenerator.shuffleTarget(5);
+        levelGenerator.ConvertLevel().build(this);
+        add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
 
     }
 
@@ -133,7 +141,7 @@ public class TolView extends World implements DoneHandler {
                 };
                 float [][] blockData1 = {
                         {1f/5, 3, Color.GREEN},
-                        {2f/5, 2, Color.BLUE},
+                        {2f/5, 1, Color.BLUE},
                         {3f/5, 1, Color.RED},
                         {4f/5, 1, Color.YELLOW},
 
@@ -189,6 +197,15 @@ public class TolView extends World implements DoneHandler {
 
                 };
                 (new TolLevel(pegData3, blockData3, targetblockData3)).build(this);
+                add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+                break;
+            default:
+                removeAll(entities);
+                int [] heights = {1,3,4};
+                float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
+                TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
+                levelGenerator.shuffleTarget(5);
+                levelGenerator.ConvertLevel().build(this);
                 add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
                 break;
         }
