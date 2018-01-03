@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <EditTextPreference
+        android:key="tol_max_difficulty"
+        android:title="@string/tol_max_difficulty"
+        android:numeric="integer"
+        android:maxLength="1"
+        android:defaultValue="5"
+        />
 </PreferenceScreen>

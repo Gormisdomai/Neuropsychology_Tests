@@ -48,6 +48,7 @@ public class TolView extends World implements DoneHandler {
 
     }
     private boolean inited = false;
+    private int maxDifficulty = 5;
     @Override
     public void init (int _w, int _h) {
         inited = true;
@@ -76,7 +77,8 @@ public class TolView extends World implements DoneHandler {
         int [] heights = {3,1,4};
         float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
         TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
-        levelGenerator.shuffleTarget(5);
+        maxDifficulty = Integer.parseInt(prefs.getString("tol_max_difficulty", "5"));
+        levelGenerator.shuffleTarget(maxDifficulty);
         levelGenerator.ConvertLevel().build(this);
         add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
 
@@ -90,7 +92,7 @@ public class TolView extends World implements DoneHandler {
         super.draw(c);
         if (!inited) return;
         if (pegs.equals(targetPegs)){
-            c.drawCircle(0, 0, 100, paint);
+            //c.drawCircle(0, 0, 100, paint);
 
         }
 
@@ -106,7 +108,17 @@ public class TolView extends World implements DoneHandler {
         super.updateLogic();
     }
 
+    private Random random = new Random();
     public void nextState(){
+        removeAll(entities);
+        int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 1, random.nextInt(4) + 1};
+        float[] colors = {Color.RED, Color.BLUE, Color.GREEN};
+        TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
+        levelGenerator.shuffleTarget(maxDifficulty);
+        levelGenerator.ConvertLevel().build(this);
+        add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+    }
+   /* public void nextState(){
         state ++;
         switch (state){
             case 1:
@@ -210,7 +222,7 @@ public class TolView extends World implements DoneHandler {
                 break;
         }
 
-    }
+    }*/
 
 
 }

@@ -26,6 +26,8 @@
     <string name="complex_figure_timing">Timeout for Complex Figure</string>
     <string name="trail_timing">Timeout for Trail Making</string>
 
+    <string name="tol_max_difficulty">Max ToL Difficulty</string>
+
 <!-- Some constants for different game modes -->
 
 

@@ -20,9 +20,9 @@ public final class GamesList {
             TrailMakingView.GAMEID,
             FluencyView.GAMEID,
             ComplexFigureView.GAMEID,
-            TolView.GAMEID,
+            TolView.GAMEID/*,
             VisualDigitSpanView.GAMEID,
-            NumericalDigitSpanView.GAMEID
+            NumericalDigitSpanView.GAMEID*/
     } ;
 
     public static String[] gameNames = {
@@ -31,9 +31,9 @@ public final class GamesList {
             "Trail Making",
             "Design Fluency",
             "Complex Figure",
-            "Tower of London",
+            "Tower of London" /*,
             "Shape Span",
-            "Digit Span"
+            "Digit Span"*/
     } ;
 
     //maps gameIds to preference files.
@@ -43,9 +43,9 @@ public final class GamesList {
             R.xml.trail_making_preferences,//TrailMakingView.GAMEID,
             R.xml.fluencey_preferences,//FluencyView.GAMEID,
             R.xml.complex_figure_preferences,//ComplexFigureView.GAMEID,
-            R.xml.tol_preferences,//TolView.GAMEID,
+            R.xml.tol_preferences /*,//TolView.GAMEID,
             R.xml.visual_digit_span_preferences,//VisualDigitSpanView.GAMEID,
-            R.xml.numerical_digit_span_preferences //NumericalDigitSpanView.GAMEID
+            R.xml.numerical_digit_span_preferences //NumericalDigitSpanView.GAMEID*/
     } ;
 
     public static int getPreferencesFromGameId(String GameID){
