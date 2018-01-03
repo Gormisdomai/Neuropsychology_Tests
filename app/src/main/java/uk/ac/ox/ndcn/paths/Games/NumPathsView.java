@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.graphics.Bitmap;
+import android.view.MotionEvent;
 
 import com.dropbox.client2.DropboxAPI;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
 import uk.ac.ox.ndcn.paths.GeneralEntities.OpacityBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
+import uk.ac.ox.ndcn.paths.GeneralEntities.Timer;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 import uk.ac.ox.ndcn.paths.MazeEntities.*;
 import uk.ac.ox.ndcn.paths.R;
@@ -55,12 +57,19 @@ public class NumPathsView extends World implements DoneHandler{
 
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        if(!tutorial_mode && !timer.running) timer.start(timeout);
+        return super.onTouchEvent(event);
+    }
+
     public void done(){
         entities.clear();
         game(w, h);
         tutorial_mode = false;
     }
 
+    Timer timer;
     private void game(int w, int h){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         int r = Integer.parseInt(prefs.getString("blob_radius", "6"));
@@ -68,6 +77,8 @@ public class NumPathsView extends World implements DoneHandler{
         add(line);
         add(new Goal(w / 2, h / 8, r*h/64));
         add(new Start(w/2, 7*h/8, r*h/64));
+        timer = new Timer(100, 100);
+        add(timer);
 
         timeout = Integer.parseInt(prefs.getString("num_paths_timing", "240")) *1000;
 
