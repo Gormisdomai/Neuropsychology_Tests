@@ -111,7 +111,7 @@ public class TolView extends World implements DoneHandler {
     private Random random = new Random();
     public void nextState(){
         removeAll(entities);
-        int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 1, random.nextInt(4) + 1};
+        int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
         float[] colors = {Color.RED, Color.BLUE, Color.GREEN};
         TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
         levelGenerator.shuffleTarget(maxDifficulty);
