@@ -7,4 +7,39 @@
         android:maxLength="1"
         android:defaultValue="5"
         />
+    <EditTextPreference
+        android:key="tol_min_difficulty"
+        android:title="@string/tol_min_difficulty"
+        android:numeric="integer"
+        android:maxLength="1"
+        android:defaultValue="1"
+        />
+    <SwitchPreference
+        android:key="tol_mixed_height"
+        android:title="@string/tol_mixed_height_question"
+        android:summaryOn="@string/tol_mixed_height_yes"
+        android:summaryOff="@string/tol_mixed_height_no"
+        android:defaultValue="false"
+        />
+    <SwitchPreference
+        android:key="tol_randomise_difficulty"
+        android:title="@string/tol_increase_difficulty_question"
+        android:summaryOn="@string/tol_random_difficulty"
+        android:summaryOff="@string/tol_increase_difficulty"
+        android:defaultValue="false"
+        />
+   <!-- <EditTextPreference
+        android:key="tol_num_trials"
+        android:title="@string/number_of_trials"
+        android:numeric="integer"
+        android:maxLength="3"
+        android:defaultValue="5"
+        />!-->
+    <EditTextPreference
+        android:key="tol_repeat_difficulty"
+        android:title="@string/tol_repeat_difficulty"
+        android:numeric="integer"
+        android:maxLength="3"
+        android:defaultValue="2"
+        />
 </PreferenceScreen>
