@@ -27,6 +27,18 @@
     <string name="trail_timing">Timeout for Trail Making</string>
 
     <string name="tol_max_difficulty">Max ToL Difficulty</string>
+    <string name="tol_min_difficulty">Min ToL Difficulty</string>
+    <string name="tol_repeat_difficulty">Repeat Each Difficulty How Many Times?</string>
+
+    <string name="tol_mixed_height_question">Mix Heights of ToL Pegs?</string>
+    <string name="tol_mixed_height_yes">Mix Heights</string>
+    <string name="tol_mixed_height_no">Don\'t Mix Heights</string>
+
+    <string name="tol_increase_difficulty_question">Vary Difficutly?</string>
+    <string name="tol_increase_difficulty">Increase Difficulty</string>
+    <string name="tol_random_difficulty">Random Difficulty</string>
+
+    <string name="number_of_trials">Number of Trials</string>
 
 <!-- Some constants for different game modes -->
 
