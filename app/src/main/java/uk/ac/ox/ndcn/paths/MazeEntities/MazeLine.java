@@ -40,8 +40,8 @@ public class MazeLine extends Entity {
     }
 
     private boolean gameOver = false;
-    Paint line = new Paint();
-    Paint greyline = new Paint();
+    public Paint line = new Paint();
+    public Paint greyline = new Paint();
     Path path = new Path();
     PathData points = new PathData();
     World world;
@@ -65,7 +65,6 @@ public class MazeLine extends Entity {
         line.setStrokeJoin(Paint.Join.ROUND);
         line.setStrokeCap(Paint.Cap.ROUND);
         line.setStrokeWidth(Integer.parseInt(prefs.getString("line_width", "6")));
-
 
         greyline.setAntiAlias(true);
         greyline.setDither(true);

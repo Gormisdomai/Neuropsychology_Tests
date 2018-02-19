@@ -3,6 +3,7 @@ package uk.ac.ox.ndcn.paths.Games;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
@@ -34,23 +35,35 @@ public class SwitchPathsView extends World {
         this.w = w;
         this.h = h;
         line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID))));
-        add(new Goal(w/16, h/8, r*h/64));
+        line.greyline.setColor(Color.BLACK);
+        add(new Goal(w / 16, h / 8, r * h / 64));
 
 
         ArrayList<Obstacle> subsequentObstacles = new ArrayList<Obstacle>();
 
         subsequentObstacles.add(new Obstacle(13*w/16, 0, h/30, h/5));
-        subsequentObstacles.add(new Obstacle(12*w/16, h/7, h/30, h/5));
-        subsequentObstacles.add(new Obstacle(11*w/16, 0, h/30, h/5));
-        subsequentObstacles.add(new Obstacle(10*w/16, h/7, h/30, h/5));
-        subsequentObstacles.add(new Obstacle(9*w/16, 0, h/30, h/5));
+            subsequentObstacles.add(new Obstacle(12*w/16, h/7, h/30, h/5));
+                subsequentObstacles.add(new Obstacle(11*w/16, 2*h/7, h/30, h/4));
+        subsequentObstacles.add(new Obstacle(10*w/16, 0, h/30, h/5));
+            subsequentObstacles.add(new Obstacle(9 * w / 16, h / 7, h / 30, h / 5));
+
+            subsequentObstacles.add(new Obstacle(9 * w / 16, 2*h / 7, h / 30, h / 4));
+
+
+                subsequentObstacles.add(new Obstacle(10 * w / 16, 2*h/7, h / 30, h / 4));
+            subsequentObstacles.add(new Obstacle(11*w/16, h/7, h/30, h/4));
+
+                subsequentObstacles.add(new Obstacle(13*w/16, 2*h/7, h/30, h/4));
+            subsequentObstacles.add(new Obstacle(12*w/16, 0, h/30, h/4));
+
+
         add(new Goal(15 * w / 16, h / 8, r*h/64, new ObstacleSpawner(subsequentObstacles, this)));
         add(new Start(w / 2, 7 * h / 8, r*h/64));
 
         //add(new TextBox(20,20,"TESTING ONLY"));
 
-        add(new Obstacle(0, h / 3, 2 * w / 5, 3 * h / 3));
-        add(new Obstacle(3*w/5, h / 3, 2*w/5, 2*h/3));
+        add(new Obstacle(0, h / 2, 3 * w / 7, h / 2));
+        add(new Obstacle(4*w/7, h / 2, 3*w/7, h/2));
 
 
         timeout = Integer.parseInt(prefs.getString("switch_paths_timing", "240"))* 1000;

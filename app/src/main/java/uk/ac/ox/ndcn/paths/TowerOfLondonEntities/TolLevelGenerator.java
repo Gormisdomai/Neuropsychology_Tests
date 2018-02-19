@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Stack;
@@ -34,11 +35,46 @@ public class TolLevelGenerator {
             return clone;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof AbstractPeg) {
+                return Arrays.equals(((AbstractPeg) o).blocks.toArray(), blocks.toArray());
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        @Override
+        public String toString(){
+            String r = "";
+            for (Float i : blocks){
+                r = r + " " + colourize(i);
+            }
+            return r;
+        }
+
+        public String colourize(Float f){
+            if (f == -65536.0){
+                return "R";
+            } else if (f == -1.6776961E7 ) {
+                return "B";
+            } else {
+                return "G";
+            }
+        }
+
     }
 
     private class State {
         public ArrayList<AbstractPeg> pegs = new ArrayList<>();
-        public AbstractPeg lastLoadedPeg = null;
+        public Float lastMovedBlock = null;
+        public State lastState = null;
+        public int distanceFromStart = 0;
 
         public State (ArrayList<AbstractPeg> pegs){
             for(AbstractPeg p : pegs) {
@@ -88,24 +124,36 @@ public class TolLevelGenerator {
                     State s = new State(pegs);
                     AbstractPeg src = s.getLoadedPegs().get(i);
                     AbstractPeg dest = s.getFreePegs().get(j);
-                    if (src == dest) continue; //no need to move to the same peg
-                    if (getLoadedPegs().get(i) == lastLoadedPeg) continue; //don't move the same block twice in a row
+                    if (src.blocks.peek() == lastMovedBlock) continue; //don't move the same block twice in a row
                     dest.blocks.push(src.blocks.pop());
-                    s.lastLoadedPeg = dest;
+                    s.lastMovedBlock = dest.blocks.peek();
+                    s.lastState = this;
+                    s.distanceFromStart = this.distanceFromStart + 1;
                     availableMoves.add(s);
                 }
             }
             return availableMoves;
         }
 
-        public State without (AbstractPeg p) {
-            if (p == null){
-                return new State(pegs);
+       @Override
+        public boolean equals(Object o) {
+            if (o instanceof State && (((State) o).pegs.equals(this.pegs))) {
+                return true;
+            } else {
+                return false;
             }
-            ArrayList<AbstractPeg> r = ((ArrayList<AbstractPeg>) pegs.clone());
-            r.remove(p);
-            return new State(r);
         }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        @Override
+        public String toString(){
+            return this.pegs.toString();
+        }
+
     }
 
     State level = new State (new ArrayList<AbstractPeg>());
@@ -130,25 +178,39 @@ public class TolLevelGenerator {
     }
 
     public void shuffleTarget(int difficulty){
-        //at the moment this performs d moves. In future prevent revisiting previously visited states by maintaining a history
-        //rejig to generate set of next states - and check if any aren't in history. give up and return if there are none
-        //(prevent moving to same peg)
+        //now is a DFS but some annoying state paths exist
+        // options: make it a BFS: rejig datastructures to keep a wavefront and ignore previously visited states
+        // stick with DFS and then try to solve with BFS when you find a soloution.
+        // hold off on these for the time being and deliver the basic settings changes they wanted.
         Random random = new Random();
         Set<State> visitedStates = new HashSet<>();
+        State hardestState = target;
         visitedStates.add(target);
-        for (int i = 0; i < difficulty; i ++){
+        int loopCatcher = 0;
+        while (target.distanceFromStart < difficulty){
+            //Log.d("gen: target", target.toString());
             Set<State> movesToConsider = target.availableMoves();
             movesToConsider.removeAll(visitedStates);
             if (movesToConsider.size() == 0) {
-                Log.d("incomplete difficulty", "" + i);
-                return;
+                //Log.d("gen: backtracking", "" + target.distanceFromStart);
+                //backtrack
+                loopCatcher ++;
+                if (target.lastState == null || loopCatcher > 1000){
+                    target = hardestState;
+                    Log.d("gen: incomp difficulty", "" + target.distanceFromStart);
+                    break;
+                }
+                target = target.lastState;
+                continue;
             }
 
             ArrayList<State> availableMoves = new ArrayList<State>(movesToConsider);
             State nextMove = availableMoves.get(random.nextInt(availableMoves.size()));
             visitedStates.add(nextMove);
             target = nextMove;
+            if(hardestState.distanceFromStart < target.distanceFromStart) hardestState = target;
         }
+        Log.d("gen: comp difficulty", "" + target.distanceFromStart);
     }
 
     public TolLevel ConvertLevel(){

@@ -30,7 +30,7 @@ public class Button extends Entity {
     @Override
     public void  draw(Canvas canvas){
         if(down == true){
-            paint.setColor(Color.RED);
+            paint.setColor(Color.LTGRAY); //TODO Change to light gray
         }
         else
         {

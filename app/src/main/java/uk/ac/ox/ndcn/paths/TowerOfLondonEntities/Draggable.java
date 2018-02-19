@@ -33,14 +33,14 @@ public class Draggable extends Entity {
                     break;
                 case MotionEvent.ACTION_UP:
                     drag_end();
-                    Log.d("++++++++++++++++", "+++++++++++++++");
+                  //  Log.d("++++++++++++++++", "+++++++++++++++");
                     dragging = false;
                     break;
             }
 
         }
-        Log.d("event", ""+ event.getAction());
-        Log.d("drag", "" + dragging);
+       // Log.d("event", ""+ event.getAction());
+       // Log.d("drag", "" + dragging);
     }
 
     @Override public void update(){

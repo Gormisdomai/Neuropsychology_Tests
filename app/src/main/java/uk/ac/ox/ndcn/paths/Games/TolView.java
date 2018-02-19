@@ -48,7 +48,14 @@ public class TolView extends World implements DoneHandler {
 
     }
     private boolean inited = false;
+    private boolean mixHeights = false;
     private int maxDifficulty = 5;
+    private int[] uniformHeights = {3,3,3};
+    private boolean randomiseDifficulty = false;
+    private int minDifficulty = 1;
+    private int currentDifficulty = 1;
+    private int repeatDifficulty = 2;
+    private int countTilNextDifficulty = 0;
     @Override
     public void init (int _w, int _h) {
         inited = true;
@@ -73,15 +80,28 @@ public class TolView extends World implements DoneHandler {
 
         };
         (new TolLevel(pegData, blockData, targetblockData)).build(this);*/
-        Random random = new Random();
-        int [] heights = {3,1,4};
-        float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
-        TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
+
+        mixHeights = prefs.getBoolean("tol_mixed_height", false);
         maxDifficulty = Integer.parseInt(prefs.getString("tol_max_difficulty", "5"));
-        levelGenerator.shuffleTarget(maxDifficulty);
+        minDifficulty = Integer.parseInt(prefs.getString("tol_min_difficulty", "1"));
+        repeatDifficulty = Integer.parseInt(prefs.getString("tol_repeat_difficulty", "1"));
+        randomiseDifficulty = prefs.getBoolean("tol_randomise_difficulty", false);
+
+
+        Random random = new Random();
+        int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
+        float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
+        TolLevelGenerator levelGenerator = new TolLevelGenerator(mixHeights ? heights : uniformHeights, colors);
+        levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
         levelGenerator.ConvertLevel().build(this);
         add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
-
+        countTilNextDifficulty ++;
+        if (countTilNextDifficulty == repeatDifficulty){
+            if (currentDifficulty <= maxDifficulty) {
+                currentDifficulty ++;
+            }
+            countTilNextDifficulty = 0;
+        }
     }
 
     @Override
@@ -113,10 +133,17 @@ public class TolView extends World implements DoneHandler {
         removeAll(entities);
         int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
         float[] colors = {Color.RED, Color.BLUE, Color.GREEN};
-        TolLevelGenerator levelGenerator = new TolLevelGenerator(heights, colors);
-        levelGenerator.shuffleTarget(maxDifficulty);
+        TolLevelGenerator levelGenerator = new TolLevelGenerator(mixHeights ? heights : uniformHeights, colors);
+        levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
         levelGenerator.ConvertLevel().build(this);
-        add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+        add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));        countTilNextDifficulty ++;
+        if (countTilNextDifficulty == repeatDifficulty){
+            if (currentDifficulty <= maxDifficulty) {
+                currentDifficulty ++;
+            }
+            countTilNextDifficulty = 0;
+        }
+
     }
    /* public void nextState(){
         state ++;
