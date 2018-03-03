@@ -126,9 +126,7 @@ public class TolView extends World implements DoneHandler {
     }
 
     public void done(){
-        //log.done();
-        ///TODO LOG IF SUCCESSFUL
-        this.pegs.equals(this.targetPegs);
+        log.done(this.pegs.equals(this.targetPegs));
         nextState();
     }
 
