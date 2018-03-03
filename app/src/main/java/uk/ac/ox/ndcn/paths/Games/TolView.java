@@ -11,11 +11,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.preference.PreferenceManager;
 
-import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
+import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.DoneButton;
 
 import com.dropbox.client2.DropboxAPI;
 
-import uk.ac.ox.ndcn.paths.Loggers.Logger;
 import uk.ac.ox.ndcn.paths.Loggers.ToLLogger;
 import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TargetPeg;
 import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.Peg;
@@ -125,9 +124,16 @@ public class TolView extends World implements DoneHandler {
 
     }
 
-    public void done(){
-        log.done(this.pegs.equals(this.targetPegs));
-        nextState();
+    public void done(String s){
+        if (s == "End"){
+            log.save();
+            finish();
+            //TODO add an end buttont that triggers this or trigger it when out of tasks
+        }
+        else {
+            log.done(this.pegs.equals(this.targetPegs));
+            nextState();
+        }
     }
 
     public void updateLogic(){
@@ -143,7 +149,8 @@ public class TolView extends World implements DoneHandler {
         int optimal = levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
         log.newLevel(optimal);
         levelGenerator.ConvertLevel().build(this);
-        add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));        countTilNextDifficulty ++;
+        add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+        countTilNextDifficulty ++;
         if (countTilNextDifficulty == repeatDifficulty){
             if (currentDifficulty <= maxDifficulty) {
                 currentDifficulty ++;

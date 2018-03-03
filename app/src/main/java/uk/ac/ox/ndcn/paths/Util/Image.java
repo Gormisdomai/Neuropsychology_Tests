@@ -19,7 +19,7 @@ public class Image extends Entity implements DoneHandler {
     int width, height;
     public Boolean visible = true;
 
-    public void done() {
+    public void done(String s) {
         visible = false;
         source.recycle();
     }

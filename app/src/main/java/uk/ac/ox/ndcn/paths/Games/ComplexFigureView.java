@@ -10,9 +10,8 @@ import android.preference.PreferenceManager;
 import com.dropbox.client2.DropboxAPI;
 
 import uk.ac.ox.ndcn.paths.ComplexFigureEntities.CanvasLine;
-import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
+import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.DoneButton;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
-import uk.ac.ox.ndcn.paths.Util.ClickableImage;
 import uk.ac.ox.ndcn.paths.Util.Image;
 import uk.ac.ox.ndcn.paths.GeneralEntities.OpacityBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
@@ -55,7 +54,7 @@ public class ComplexFigureView extends World implements DoneHandler {
         doneButton = (DoneButton)add(new DoneButton(0,  h-w/16, Math.max(h / 7, 100), w/16, this));
         timeout = Integer.parseInt(prefs.getString("complex_figure_timing", "240"))* 1000;
     }
-    public void done(){
+    public void done(String s){
         nextState();
     }
     protected void updateLogic(){
@@ -68,7 +67,7 @@ public class ComplexFigureView extends World implements DoneHandler {
     public void nextState(){
         switch (state){
             case COPY:
-                line.done();
+                line.done("");
                 history.saveImage(getContext());
                 remove(doneButton);
                 remove(history);
@@ -78,11 +77,11 @@ public class ComplexFigureView extends World implements DoneHandler {
                 history = (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID));
                 line = (CanvasLine) add(new CanvasLine(this, history));
                 doneButton = (DoneButton)add(new DoneButton(0, h-w/16, Math.max(h / 7, 100), w/16, this));
-                image.done();
+                image.done("");
                 state += 1;
                 break;
             case REMEMBER:
-                line.done();
+                line.done("");
                 history.saveImage(getContext());
                 state += 1;
                 add(new OpacityBox(0, 0, w, h));

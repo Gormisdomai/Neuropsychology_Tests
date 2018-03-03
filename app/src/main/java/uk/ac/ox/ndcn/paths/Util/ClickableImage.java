@@ -26,7 +26,7 @@ public class ClickableImage extends Image {
     }
     protected void clicked() {
         if(!pressed) {
-            handler.done();
+            handler.done("");
 
             pressed = true;
         }

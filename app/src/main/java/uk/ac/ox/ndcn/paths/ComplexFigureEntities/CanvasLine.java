@@ -38,7 +38,7 @@ public class CanvasLine extends Entity implements DoneHandler {
         path.reset();
         points.reset();
     }
-    public void done(){
+    public void done(String s){
         setGameOver();
     }
 

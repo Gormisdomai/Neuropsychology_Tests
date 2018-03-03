@@ -22,9 +22,11 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.UploadFile;
     //  -
 
 public class Logger {
-    private String log = "";
+    public boolean enabled = true;
+    protected String log = "";
     private DropboxAPI mDBApi;
     private String logName = "";
+
 
     public Logger(String user, String game){
         logName = user + "_" + game;
@@ -36,6 +38,7 @@ public class Logger {
     }
 
     public void logWord(String word){
+        if (! enabled) return;
         log += word;
     }
 

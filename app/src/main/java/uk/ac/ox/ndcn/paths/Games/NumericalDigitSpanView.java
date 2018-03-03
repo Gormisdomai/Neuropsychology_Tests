@@ -47,7 +47,7 @@ public class NumericalDigitSpanView extends World {
         k = (Keypad)add(new Keypad(9,false,0,h/3,w, h/2,this));
 
         add(new DigitDisplay(0, 0, w, h, s, 1000, new DoneHandler() {
-            public void done() {
+            public void done(String s) {
             }
         }));
 

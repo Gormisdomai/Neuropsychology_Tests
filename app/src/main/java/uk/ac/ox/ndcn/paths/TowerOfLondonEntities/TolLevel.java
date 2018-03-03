@@ -26,6 +26,7 @@ public class TolLevel extends Entity{
     }
 
     public void build(TolView world){
+        Peg.count = 1;
         int w = world.w;
         int h = world.h;
         float block_height = 50;

@@ -11,6 +11,7 @@ import uk.ac.ox.ndcn.paths.Loggers.Logger;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
 import uk.ac.ox.ndcn.paths.GeneralEntities.CollisionType;
+import uk.ac.ox.ndcn.paths.Loggers.ToLLogger;
 import uk.ac.ox.ndcn.paths.Util.CollisionFunctions;
 
 /**
@@ -23,10 +24,10 @@ public class TowerBlock extends Draggable {
     protected float height = 150;
     private Rect rect;
     protected int color;
-    private Logger log;
+    private ToLLogger log;
 
 
-    public TowerBlock(World _world, float _x, float _y, float _width, float _height, int color, Logger log){
+    public TowerBlock(World _world, float _x, float _y, float _width, float _height, int color, ToLLogger log){
         super(_world);
         this.log = log;
         x = _x;
@@ -94,7 +95,16 @@ public class TowerBlock extends Draggable {
     @Override protected void drag_start(float x, float y){
         super.drag_start(x, y);
         ((TolView)world).drag_lock = true;
-        //Set logger src peg
+
+        //TODO why isn't this working?
+        for (Entity entity : world.entities) {
+            if (entity.collideLine(this.x, this.y, this.x + width -1, this.y + height-1)) {
+                if (entity.collisionType == collisionType.PEG) {
+                    log.startMove(entity.toString());
+                    break;
+                }
+            }
+        }
 
     }
     @Override protected void drag_end(){
@@ -102,7 +112,7 @@ public class TowerBlock extends Draggable {
         for (Entity entity : world.entities) {
             if (entity.collideLine(x,y+height,x+width,y+height)) {
                 if (entity.collisionType == collisionType.PEG){
-
+                    log.endMove(entity.toString());
                     //TODO CONSTRAIN X SEPERATE TO Y
                     if(entity!=this) {
                         boolean downcollide = false;
@@ -120,7 +130,6 @@ public class TowerBlock extends Draggable {
                             if (!downcollide) y += 1;
                         }
                         x = entity.x-width/2;
-                        //Set logger end peg
                         return;
                     }
 
@@ -129,10 +138,16 @@ public class TowerBlock extends Draggable {
 
         };
         //reset position
+        log.cancelMove();
         x = sX; y = sY;
     }
 
-    public void snap() { drag_end();};
+    public void snap() {
+        boolean oldState = log.enabled;
+        log.enabled = false;
+        drag_end();
+        log.enabled = oldState;
+    };
 
     @Override public boolean equals(Object t){
        if (t instanceof TowerBlock)

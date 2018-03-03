@@ -63,7 +63,7 @@ public class NumPathsView extends World implements DoneHandler{
         return super.onTouchEvent(event);
     }
 
-    public void done(){
+    public void done(String s){
         entities.clear();
         game(w, h);
         tutorial_mode = false;

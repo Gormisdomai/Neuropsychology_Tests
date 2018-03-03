@@ -21,9 +21,9 @@ public class InstructionSlideShow extends Entity implements DoneHandler{
     int w,h;
     World world;
     Resources res;
-    public void done(){
+    public void done(String s){
         if (stage == -1){
-            handler.done();
+            handler.done(s);
         }
         else {
             world.entities.clear();

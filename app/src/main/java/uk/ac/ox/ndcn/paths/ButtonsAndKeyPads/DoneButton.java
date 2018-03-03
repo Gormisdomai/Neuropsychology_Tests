@@ -1,4 +1,4 @@
-package uk.ac.ox.ndcn.paths.ComplexFigureEntities;
+package uk.ac.ox.ndcn.paths.ButtonsAndKeyPads;
 
 import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.Button;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
@@ -9,8 +9,14 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
 public class DoneButton extends Button {
     DoneHandler handler;
     private boolean pressed = false;
+    private String text = "Done!";
     public DoneButton(int _x, int _y, int _width, int _height, DoneHandler h) {
         super(_x, _y, _width, _height, "Done!");
+        handler = h;
+    }
+
+    public DoneButton(int _x, int _y, int _width, int _height, String text, DoneHandler h) {
+        super(_x, _y, _width, _height, text);
         handler = h;
     }
 
@@ -18,7 +24,7 @@ public class DoneButton extends Button {
     @Override
     protected void clicked() {
         if(!pressed) {
-            handler.done();
+            handler.done(text);
 
             pressed = true;
         }

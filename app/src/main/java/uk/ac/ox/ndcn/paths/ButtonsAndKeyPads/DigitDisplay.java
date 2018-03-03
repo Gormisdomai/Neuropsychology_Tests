@@ -6,13 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import java.lang.reflect.Array;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-
-import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
 import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
@@ -51,7 +44,7 @@ public class DigitDisplay extends Entity {
         long index = (System.currentTimeMillis() - startTime) / millisPerDigit;
 
         if (index >= digits.length){
-            h.done();
+            h.done("");
         }
         else
         {

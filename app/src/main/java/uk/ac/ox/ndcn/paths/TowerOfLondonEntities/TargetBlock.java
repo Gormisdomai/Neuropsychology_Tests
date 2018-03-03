@@ -4,15 +4,16 @@ import android.view.MotionEvent;
 
 import uk.ac.ox.ndcn.paths.GeneralEntities.CollisionType;
 import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
-import uk.ac.ox.ndcn.paths.Loggers.Logger;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
+import uk.ac.ox.ndcn.paths.Loggers.ToLLogger;
 
 /**
  * Created by appdev on 11/01/2017.
  */
 public class TargetBlock extends TowerBlock {
-    public TargetBlock(World _world, float _x, float _y, float _width, float _height, int color, Logger log) {
+    public TargetBlock(World _world, float _x, float _y, float _width, float _height, int color, ToLLogger log) {
         super(_world, _x, _y, _width, _height, color, log);
+
         collisionType = CollisionType.OBSTACLE;
     }
     @Override public void touch(MotionEvent e){
