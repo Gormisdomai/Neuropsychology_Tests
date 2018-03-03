@@ -7,6 +7,7 @@ import android.graphics.Rect;
 
 import uk.ac.ox.ndcn.paths.Games.TolView;
 import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
+import uk.ac.ox.ndcn.paths.Loggers.Logger;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
 import uk.ac.ox.ndcn.paths.GeneralEntities.CollisionType;
@@ -22,10 +23,12 @@ public class TowerBlock extends Draggable {
     protected float height = 150;
     private Rect rect;
     protected int color;
+    private Logger log;
 
 
-    public TowerBlock(World _world, float _x, float _y, float _width, float _height, int color){
+    public TowerBlock(World _world, float _x, float _y, float _width, float _height, int color, Logger log){
         super(_world);
+        this.log = log;
         x = _x;
         y = _y;
         sX = x;
@@ -91,6 +94,8 @@ public class TowerBlock extends Draggable {
     @Override protected void drag_start(float x, float y){
         super.drag_start(x, y);
         ((TolView)world).drag_lock = true;
+        //Set logger src peg
+
     }
     @Override protected void drag_end(){
         ((TolView)world).drag_lock = false;
@@ -115,7 +120,7 @@ public class TowerBlock extends Draggable {
                             if (!downcollide) y += 1;
                         }
                         x = entity.x-width/2;
-
+                        //Set logger end peg
                         return;
                     }
 

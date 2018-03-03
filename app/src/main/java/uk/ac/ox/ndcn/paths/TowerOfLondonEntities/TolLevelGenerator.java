@@ -177,7 +177,7 @@ public class TolLevelGenerator {
         numBlocks = blocks.length;
     }
 
-    public void shuffleTarget(int difficulty){
+    public int shuffleTarget(int difficulty){
         //now is a DFS but some annoying state paths exist
         // options: make it a BFS: rejig datastructures to keep a wavefront and ignore previously visited states
         // stick with DFS and then try to solve with BFS when you find a soloution.
@@ -198,7 +198,7 @@ public class TolLevelGenerator {
                 if (target.lastState == null || loopCatcher > 1000){
                     target = hardestState;
                     Log.d("gen: incomp difficulty", "" + target.distanceFromStart);
-                    break;
+                    return target.distanceFromStart;
                 }
                 target = target.lastState;
                 continue;
@@ -211,6 +211,7 @@ public class TolLevelGenerator {
             if(hardestState.distanceFromStart < target.distanceFromStart) hardestState = target;
         }
         Log.d("gen: comp difficulty", "" + target.distanceFromStart);
+        return target.distanceFromStart;
     }
 
     public TolLevel ConvertLevel(){

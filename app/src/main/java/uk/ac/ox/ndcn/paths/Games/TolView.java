@@ -15,8 +15,9 @@ import uk.ac.ox.ndcn.paths.ComplexFigureEntities.DoneButton;
 
 import com.dropbox.client2.DropboxAPI;
 
+import uk.ac.ox.ndcn.paths.Loggers.Logger;
+import uk.ac.ox.ndcn.paths.Loggers.ToLLogger;
 import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TargetPeg;
-import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TolLevel;
 import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.Peg;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
@@ -34,6 +35,8 @@ public class TolView extends World implements DoneHandler {
     public int h;
     public static final String GAMEID = "TolView";
     public boolean drag_lock = false;
+
+    public ToLLogger log;
 
     public ArrayList<Peg> pegs = new ArrayList<>();
     public ArrayList<TargetPeg> targetPegs = new ArrayList<>();
@@ -58,6 +61,7 @@ public class TolView extends World implements DoneHandler {
     private int countTilNextDifficulty = 0;
     @Override
     public void init (int _w, int _h) {
+        log = new ToLLogger(GAMEID, user, this.getContext());
         inited = true;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         w = _w;
@@ -92,7 +96,8 @@ public class TolView extends World implements DoneHandler {
         int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
         float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
         TolLevelGenerator levelGenerator = new TolLevelGenerator(mixHeights ? heights : uniformHeights, colors);
-        levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
+        int optimal = levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
+        log.newLevel(optimal);
         levelGenerator.ConvertLevel().build(this);
         add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
         countTilNextDifficulty ++;
@@ -121,6 +126,9 @@ public class TolView extends World implements DoneHandler {
     }
 
     public void done(){
+        //log.done();
+        ///TODO LOG IF SUCCESSFUL
+        this.pegs.equals(this.targetPegs);
         nextState();
     }
 
@@ -134,7 +142,8 @@ public class TolView extends World implements DoneHandler {
         int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
         float[] colors = {Color.RED, Color.BLUE, Color.GREEN};
         TolLevelGenerator levelGenerator = new TolLevelGenerator(mixHeights ? heights : uniformHeights, colors);
-        levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
+        int optimal = levelGenerator.shuffleTarget(randomiseDifficulty ? random.nextInt(maxDifficulty) + minDifficulty : currentDifficulty);
+        log.newLevel(optimal);
         levelGenerator.ConvertLevel().build(this);
         add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));        countTilNextDifficulty ++;
         if (countTilNextDifficulty == repeatDifficulty){

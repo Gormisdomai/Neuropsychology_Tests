@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import android.graphics.Canvas;
 
+import uk.ac.ox.ndcn.paths.Games.SwitchPathsView;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
 /**
@@ -14,11 +15,13 @@ public class ObstacleSpawner implements GoalBehaviour {
 
     Iterator<Obstacle> obstacles;
     //public ArrayList<Obstacle> drawableObstacles = new ArrayList<Obstacle>();
-    private World w;
+    private SwitchPathsView w;
+    private int scoreIncrement;
 
-    public ObstacleSpawner(Iterable<Obstacle> os, World _w){
+    public ObstacleSpawner(Iterable<Obstacle> os, SwitchPathsView _w, int _scoreIncrement){
         obstacles = os.iterator();
         w = _w;
+        scoreIncrement = _scoreIncrement;
     }
 
 
@@ -27,6 +30,7 @@ public class ObstacleSpawner implements GoalBehaviour {
         {
             Obstacle o = obstacles.next();
             w.add(o);
+            w.score += scoreIncrement;
             //drawableObstacles.add(o);
 
 

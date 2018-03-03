@@ -23,5 +23,13 @@
             android:maxLength="3"
             android:defaultValue="120"
             />
+
+        <EditTextPreference
+            android:key="switch_points"
+            android:title="@string/switch_points"
+            android:numeric="integer"
+            android:maxLength="2"
+            android:defaultValue="2"
+        />
         />
 </PreferenceScreen>

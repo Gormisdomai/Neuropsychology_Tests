@@ -83,7 +83,7 @@ public class TolLevel extends Entity{
             float x = block[0] * w - block_offset;
             float y = block[1] * block_height * 1.1f;
             world.add(
-                    new TowerBlock(world, x, h-y-base_offset, block_width, block_height, (int) block[2])
+                    new TowerBlock(world, x, h-y-base_offset, block_width, block_height, (int) block[2], world.log)
             );
         }
 
@@ -100,7 +100,7 @@ public class TolLevel extends Entity{
             float x = block[0] * w - block_offset;
             float y = block[1] * block_height* 1.1f;
             world.add(
-                    new TargetBlock(world, x, h/2-y-base_offset, block_width, block_height, (int)block[2])
+                    new TargetBlock(world, x, h/2-y-base_offset, block_width, block_height, (int)block[2], world.log)
             );
         }
 

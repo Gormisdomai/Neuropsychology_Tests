@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_num_paths">Paths</string>
     <string name="title_activity_main">Paths</string>
+    <string name="switch_points">Number of Points for Hard Blob</string>
     <string name="appearance">Appearance</string>
     <string name="line_width">Line Width</string>
     <string name="blob_radius">Blob Radius</string>
@@ -39,6 +40,8 @@
     <string name="tol_random_difficulty">Random Difficulty</string>
 
     <string name="number_of_trials">Number of Trials</string>
+
+
 
 <!-- Some constants for different game modes -->
 
