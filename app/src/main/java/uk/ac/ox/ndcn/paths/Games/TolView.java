@@ -54,6 +54,8 @@ public class TolView extends World implements DoneHandler {
     private int maxDifficulty = 5;
     private int[] uniformHeights = {3,3,3};
     private boolean randomiseDifficulty = false;
+    private int numTrials = 5;
+    private int trialsSoFar = 1;
     private int minDifficulty = 1;
     private int currentDifficulty = 1;
     private int repeatDifficulty = 2;
@@ -89,6 +91,7 @@ public class TolView extends World implements DoneHandler {
         minDifficulty = Integer.parseInt(prefs.getString("tol_min_difficulty", "1"));
         repeatDifficulty = Integer.parseInt(prefs.getString("tol_repeat_difficulty", "1"));
         randomiseDifficulty = prefs.getBoolean("tol_randomise_difficulty", false);
+        numTrials = Integer.parseInt(prefs.getString("tol_num_trials", "5"));
 
 
         Random random = new Random();
@@ -99,6 +102,7 @@ public class TolView extends World implements DoneHandler {
         log.newLevel(optimal);
         levelGenerator.ConvertLevel().build(this);
         add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+        add(new DoneButton(Math.max(w / 7, 100) + 10, 0, Math.max(w / 7, 100), h/16, "End", this));
         countTilNextDifficulty ++;
         if (countTilNextDifficulty == repeatDifficulty){
             if (currentDifficulty <= maxDifficulty) {
@@ -125,13 +129,14 @@ public class TolView extends World implements DoneHandler {
     }
 
     public void done(String s){
-        if (s == "End"){
+        if (s == "End" || trialsSoFar >= numTrials){
             log.save();
             finish();
-            //TODO add an end buttont that triggers this or trigger it when out of tasks
+            //TODO add an end button that triggers this or trigger it when out of tasks
         }
         else {
             log.done(this.pegs.equals(this.targetPegs));
+            trialsSoFar += 1;
             nextState();
         }
     }
@@ -150,6 +155,7 @@ public class TolView extends World implements DoneHandler {
         log.newLevel(optimal);
         levelGenerator.ConvertLevel().build(this);
         add(new DoneButton(0, 0, Math.max(w / 7, 100), h / 16, this));
+        add(new DoneButton(Math.max(w / 7, 100) + 10, 0, Math.max(w / 7, 100), h/16, "End", this));
         countTilNextDifficulty ++;
         if (countTilNextDifficulty == repeatDifficulty){
             if (currentDifficulty <= maxDifficulty) {

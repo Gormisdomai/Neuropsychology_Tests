@@ -39,6 +39,8 @@
     <string name="tol_increase_difficulty">Increase Difficulty</string>
     <string name="tol_random_difficulty">Random Difficulty</string>
 
+    <string name="tol_end_after_n_trials">How Many Trials?</string>
+
     <string name="number_of_trials">Number of Trials</string>
 
 

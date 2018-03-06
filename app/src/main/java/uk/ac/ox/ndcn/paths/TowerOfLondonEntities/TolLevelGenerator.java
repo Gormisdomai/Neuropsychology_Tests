@@ -178,6 +178,37 @@ public class TolLevelGenerator {
     }
 
     public int shuffleTarget(int difficulty){
+        Random random = new Random();
+        ArrayList<State> waveFront = new ArrayList<>();
+        Set<State> visitedStates = new HashSet<>();
+        waveFront.add(target);
+        visitedStates.add(target);
+        int currentDifficulty = 0;
+        while (currentDifficulty < difficulty){
+            Set<State> newMoves = new HashSet<>();
+            for (State s : waveFront){
+                Set<State> movesToConsider = s.availableMoves();
+                movesToConsider.removeAll(visitedStates);
+
+                ArrayList<State> availableMoves = new ArrayList<State>(movesToConsider);
+                newMoves.addAll(availableMoves);
+                visitedStates.addAll(availableMoves);
+            }
+            waveFront.clear();
+            //TODO what if wavefront is empty
+            waveFront.addAll(newMoves);
+            currentDifficulty +=1;
+        }
+        target = waveFront.get(random.nextInt(waveFront.size()));
+        if (target.distanceFromStart != currentDifficulty) Log.d("gen: incompdifficulty", "" + target.distanceFromStart);
+        return target.distanceFromStart;
+    }
+
+    public int shuffleTargetDFS(int difficulty){
+
+        //THIS FUNCTION IS NO LONGER USED - JUST KEEPING IT AROUND FOR REFERENCE - its been replaced by shuffletarget
+
+
         //now is a DFS but some annoying state paths exist
         // options: make it a BFS: rejig datastructures to keep a wavefront and ignore previously visited states
         // stick with DFS and then try to solve with BFS when you find a soloution.

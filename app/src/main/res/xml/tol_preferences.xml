@@ -42,4 +42,11 @@
         android:maxLength="3"
         android:defaultValue="2"
         />
+    <EditTextPreference
+        android:key="tol_num_trials"
+        android:title="@string/tol_end_after_n_trials"
+        android:numeric="integer"
+        android:maxLength="3"
+        android:defaultValue="5"
+        />
 </PreferenceScreen>

@@ -16,7 +16,7 @@ public class Button extends Entity {
     float x, y;
     float width, height;
     Paint paint = new Paint();
-    TextBox text;
+    protected TextBox text;
 
     public Button(float _x, float _y, float _width, float _height, String _text) {
         x = _x;
