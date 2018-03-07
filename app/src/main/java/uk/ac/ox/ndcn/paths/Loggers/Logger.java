@@ -17,7 +17,7 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.UploadFile;
 
 // Note Oldlines class for linedrawing games currently handle their own logging
     // This class is currently used for the following games (as of March 2018):
-    //  -
+    //  - ToL
     //  -
     //  -
 
@@ -47,11 +47,11 @@ public class Logger {
             UploadFile.save(logName + "_" + System.currentTimeMillis() + ".txt", log, mDBApi, context);
         }
         catch (DropboxException e){
-            Log.d("err:", "dropb");
+            Log.e("saving", "Failed to save to dropbox");
             Toast.makeText(context, "Failed to save to Dropbox", Toast.LENGTH_LONG).show();
         }
         catch (IOException e){
-            Log.d("err:", "io");
+            Log.e("saving", "Failed to write to local storage");
 
             Toast.makeText(context, "Failed to write to Local Storage", Toast.LENGTH_LONG).show();
         }

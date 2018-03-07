@@ -9,7 +9,7 @@ public class PathData {
     public ArrayList<timePoint> data;
     public long start;
     public long end;
-    public int goal;
+    public int goalData;
 
     public PathData() {
         data = new ArrayList<timePoint>();
@@ -19,13 +19,14 @@ public class PathData {
         data = new ArrayList<timePoint>(src.data);
         start = src.start;
         end = src.end;
+        goalData = src.goalData;
     }
 
     @Override
     public String toString() {
         return "Path{" +
                 "Points=" + data + ", " +
-                "Goal=" + goal +
+                "Goal=" + goalData +
                 '}';
     }
 

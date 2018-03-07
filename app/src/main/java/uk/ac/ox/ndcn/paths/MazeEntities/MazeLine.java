@@ -1,7 +1,6 @@
 package uk.ac.ox.ndcn.paths.MazeEntities;
 
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,14 +10,7 @@ import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.dropbox.client2.exception.DropboxException;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import uk.ac.ox.ndcn.paths.FluencyEntities.FluencyData;
 import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
@@ -146,7 +138,7 @@ public class MazeLine extends Entity {
                             win = true;
                             points.end = System.currentTimeMillis();
                             wonAt = ((Goal)entity);
-                            points.goal = wonAt.id;
+                            points.goalData = wonAt.label;
                             break;
                     }
                 }

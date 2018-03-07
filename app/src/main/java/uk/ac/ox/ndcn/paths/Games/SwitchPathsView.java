@@ -39,9 +39,10 @@ public class SwitchPathsView extends World {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         int r = Integer.parseInt(prefs.getString("blob_radius", "6"));
         int switchPoints = Integer.parseInt(prefs.getString("switch_points", "2"));
+        if (switchPoints ==1) switchPoints = 2;
         this.w = w;
         this.h = h;
-        line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID))));
+        line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLinesSwitch(user, mDBApi, w, h, prefs, GAMEID))));
         line.greyline.setColor(Color.BLACK);
         add(new Goal(w / 16, h / 8, r * h / 64, new GoalBehaviour() {
             @Override
@@ -53,7 +54,7 @@ public class SwitchPathsView extends World {
             public void draw(Canvas c) {
 
             }
-        }));
+        }, 1));
         add(new TextBox(w / 16, h / 8, "  1  "));
 
 
@@ -75,7 +76,7 @@ public class SwitchPathsView extends World {
             subsequentObstacles.add(new Obstacle(12 * w / 16, 0, h / 30, h / 4));
 
 
-        add(new Goal(15 * w / 16, h / 8, r * h / 64, new ObstacleSpawner(subsequentObstacles, this, switchPoints)));
+        add(new Goal(15 * w / 16, h / 8, r * h / 64, new ObstacleSpawner(subsequentObstacles, this, switchPoints), switchPoints));
         add (new TextBox(15 * w / 16, h / 8, "  " + switchPoints + "  "));
         add(new Start(w / 2, 7 * h / 8, r*h/64));
         //add(new TextBox(20,20,"TESTING ONLY"));

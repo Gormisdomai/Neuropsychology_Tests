@@ -45,7 +45,7 @@ public class OldLines extends Entity {
 
     public Bitmap cache;
     private Canvas cacheCanvas = new Canvas();
-    private String game;
+    protected String game;
 
 
     public String user;
@@ -87,6 +87,7 @@ public class OldLines extends Entity {
                 output += pathnumber + ", " + point.x + ", " + point.y + ", " + point.time + "\n";
             }
         }
+        output += "--------\n";
         for (int pathnumber = 0; pathnumber < pathDatas.size(); pathnumber += 1){
             if(pathDatas.get(pathnumber).extraData() != "") {
                 output += pathnumber + ", " + pathDatas.get(pathnumber).extraData() + "\n";
@@ -98,15 +99,16 @@ public class OldLines extends Entity {
 
 
     public void save(Context context) {
+        Log.d("Saving OldLines:", this.toString());
         try{
             UploadFile.save(user + "_" + game + "_" + System.currentTimeMillis() + ".txt", this.toString(), mDBApi, context);
         }
         catch (DropboxException e){
-            Log.d("err:", "dropb");
+            Log.e("saving", "Failed to save to dropbox");
             Toast.makeText(context, "Failed to save to Dropbox", Toast.LENGTH_LONG).show();
         }
         catch (IOException e){
-            Log.d("err:", "io");
+            Log.e("saving", "Failed to write to local storage");
 
             Toast.makeText(context, "Failed to write to Local Storage", Toast.LENGTH_LONG).show();
         }
