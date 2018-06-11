@@ -51,6 +51,7 @@ public class SwitchPathsView extends World {
             }
 
             @Override
+
             public void draw(Canvas c) {
 
             }
@@ -60,7 +61,48 @@ public class SwitchPathsView extends World {
 
         ArrayList<Obstacle> subsequentObstacles = new ArrayList<Obstacle>();
 
-        subsequentObstacles.add(new Obstacle(13*w/16, 0, h/30, h/5));
+        int obstacleWidth = 3*w/112;
+        int obstacleHeight = h/8;
+
+        int offsetX = 4*w/7;
+        int offsetY = 0;
+
+        int [] [] obstaclePositions = {
+                {0,2},
+                {0,1},
+                {0,0},
+
+                {2,1},
+                {2,2},
+                {2,3},
+
+                {4,2},
+                {4,1},
+                {4,0},
+
+                {6,1},
+                {6,2},
+                {6,3},
+
+                {8,2},
+                {8,1},
+                {8,0},
+
+                {10,1},
+                {10,2},
+                {10,3},
+
+        };
+
+        for (int [] i : obstaclePositions){
+            int _x = i[0];
+            int _y = i[1];
+            subsequentObstacles.add(new Obstacle(
+                    _x * obstacleWidth + offsetX, _y * obstacleHeight + offsetY,
+                    obstacleWidth, obstacleHeight));
+        }
+
+        /*subsequentObstacles.add(new Obstacle(13*w/16, 0, h/30, h/5));
             subsequentObstacles.add(new Obstacle(12*w/16, h/7, h/30, h/5));
                 subsequentObstacles.add(new Obstacle(11*w/16, 2*h/7, h/30, h/4));
         subsequentObstacles.add(new Obstacle(10*w/16, 0, h/30, h/5));
@@ -74,6 +116,7 @@ public class SwitchPathsView extends World {
 
                 subsequentObstacles.add(new Obstacle(13 * w / 16, 2 * h / 7, h / 30, h / 4));
             subsequentObstacles.add(new Obstacle(12 * w / 16, 0, h / 30, h / 4));
+            */
 
 
         add(new Goal(15 * w / 16, h / 8, r * h / 64, new ObstacleSpawner(subsequentObstacles, this, switchPoints), switchPoints));
