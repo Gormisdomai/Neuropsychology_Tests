@@ -24,8 +24,8 @@ public class VisualDigitSpanView extends World {
     public static final String GAMEID = "VisualDigitSpanView";
     private Noisepad k;
 
-    public VisualDigitSpanView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public VisualDigitSpanView(Activity context, String _user) {
+        super(context, _user);
 
     }
     @Override

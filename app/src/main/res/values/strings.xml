@@ -52,5 +52,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_menutest">Menutest</string>
+
+
+    <!-- Change this to your app key -->
+    <string name="APP_KEY">xnht8p5v29tsxfn</string>
 </resources>
 

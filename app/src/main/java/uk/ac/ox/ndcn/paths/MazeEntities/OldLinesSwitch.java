@@ -14,8 +14,8 @@ public class OldLinesSwitch extends OldLines {
     public int score = 0;
     public int lastScore = -1;
     public ArrayList<Long> switches = new ArrayList<Long>();
-    public OldLinesSwitch(String _user, DropboxAPI mDBApi, int w, int h, SharedPreferences prefs, String _game){
-        super(_user, mDBApi, w, h, prefs, _game);
+    public OldLinesSwitch(String _user, int w, int h, SharedPreferences prefs, String _game){
+        super(_user, w, h, prefs, _game);
     }
 
 

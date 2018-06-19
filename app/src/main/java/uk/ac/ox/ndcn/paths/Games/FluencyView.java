@@ -27,8 +27,8 @@ public class FluencyView extends World {
     public static final String GAMEID = "FLUENCYVIEW";
     private Timer timer;
 
-    public FluencyView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public FluencyView(Activity context, String _user) {
+        super(context, _user);
 
     }
     @Override
@@ -38,7 +38,7 @@ public class FluencyView extends World {
         w = _w;
         h = _h;
         Trail t = new Trail(5, true, 0, 0, w, h, this);
-        line = (TrailLine)add(new TrailLine(this, new OldLines(user, mDBApi, w, h, prefs, GAMEID), t));
+        line = (TrailLine)add(new TrailLine(this, new OldLines(user, w, h, prefs, GAMEID), t));
         add(t);
         timeout = Integer.parseInt(prefs.getString("fluency_timing", "240")) * 1000;
         timer = ((Timer)add(new Timer(w/2,20)));

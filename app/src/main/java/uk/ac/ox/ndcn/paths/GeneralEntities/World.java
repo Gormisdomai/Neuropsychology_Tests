@@ -25,19 +25,16 @@ public abstract class World extends View{
 
     public String user = "";
 
-    public DropboxAPI mDBApi;
-
     public Activity a;
 
     public World(Activity context){
         super(context);
         a = context;
     }
-    public World(Activity context, String _user, DropboxAPI mDBApi){
+    public World(Activity context, String _user){
         super(context);
         a = context;
         user = _user;
-        this.mDBApi = mDBApi;
         setWillNotDraw(false);
         this.postInvalidate();
     }

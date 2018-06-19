@@ -36,8 +36,8 @@ public class ComplexFigureView extends World implements DoneHandler {
     OldLines history;
     int timeout;
 
-    public ComplexFigureView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public ComplexFigureView(Activity context, String _user) {
+        super(context, _user);
         figure = BitmapFactory.decodeResource(getResources(), R.drawable.complex_figure);
 
 
@@ -49,7 +49,7 @@ public class ComplexFigureView extends World implements DoneHandler {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         image = (Image)add(new Image(0, 0, (int)(0.8*w), h, figure));
         setBackgroundColor(Color.WHITE);
-        history = (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID));
+        history = (OldLines) add(new OldLines(user, w, h, prefs, GAMEID));
         line = (CanvasLine) add(new CanvasLine(this, history));
         doneButton = (DoneButton)add(new DoneButton(0,  h-w/16, Math.max(h / 7, 100), w/16, this));
         timeout = Integer.parseInt(prefs.getString("complex_figure_timing", "240"))* 1000;
@@ -74,7 +74,7 @@ public class ComplexFigureView extends World implements DoneHandler {
                 remove(line);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 //reset the line and the image
-                history = (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID));
+                history = (OldLines) add(new OldLines(user, w, h, prefs, GAMEID));
                 line = (CanvasLine) add(new CanvasLine(this, history));
                 doneButton = (DoneButton)add(new DoneButton(0, h-w/16, Math.max(h / 7, 100), w/16, this));
                 image.done("");

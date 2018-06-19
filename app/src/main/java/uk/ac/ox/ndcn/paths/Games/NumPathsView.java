@@ -35,8 +35,8 @@ public class NumPathsView extends World implements DoneHandler{
     private int timeout = 240000;
     public boolean tutorial_mode;
 
-    public NumPathsView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public NumPathsView(Activity context, String _user) {
+        super(context, _user);
 
 
 
@@ -73,7 +73,7 @@ public class NumPathsView extends World implements DoneHandler{
     private void game(int w, int h){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         int r = Integer.parseInt(prefs.getString("blob_radius", "6"));
-        line = new MazeLine(this, (OldLines) add(new OldLines(user, mDBApi, w, h, prefs, GAMEID)));
+        line = new MazeLine(this, (OldLines) add(new OldLines(user, w, h, prefs, GAMEID)));
         add(line);
         add(new Goal(w / 2, h / 8, r*h/64));
         add(new Start(w/2, 7*h/8, r*h/64));

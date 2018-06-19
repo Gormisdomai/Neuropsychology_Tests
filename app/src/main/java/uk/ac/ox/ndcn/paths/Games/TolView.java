@@ -44,9 +44,8 @@ public class TolView extends World implements DoneHandler {
     Image target;
 
 
-    public TolView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
-
+    public TolView(Activity context, String _user) {
+        super(context, _user);
 
     }
     private boolean inited = false;

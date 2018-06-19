@@ -30,8 +30,8 @@ public class SwitchPathsView extends World {
     public static final String GAMEID = "SWITCHPATHSVIEW";
     public int score = 0;
 
-    public SwitchPathsView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public SwitchPathsView(Activity context, String _user) {
+        super(context, _user);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SwitchPathsView extends World {
         if (switchPoints ==1) switchPoints = 2;
         this.w = w;
         this.h = h;
-        line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLinesSwitch(user, mDBApi, w, h, prefs, GAMEID))));
+        line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLinesSwitch(user, w, h, prefs, GAMEID))));
         line.greyline.setColor(Color.BLACK);
         add(new Goal(w / 16, h / 8, r * h / 64, new GoalBehaviour() {
             @Override

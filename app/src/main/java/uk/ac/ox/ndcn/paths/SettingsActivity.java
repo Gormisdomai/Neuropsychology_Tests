@@ -14,8 +14,6 @@ import uk.ac.ox.ndcn.paths.Games.GameLauncher;
 
 
 public class SettingsActivity extends Activity {
-    //TODO rewrite this so that it launches an app of your choice after choices have been made. call that app from GameLauncher.
-
 
 
     @Override

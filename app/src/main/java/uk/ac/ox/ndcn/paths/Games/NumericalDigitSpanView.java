@@ -29,8 +29,8 @@ public class NumericalDigitSpanView extends World {
     public Keypad k;
     public LinkedList<Integer> target = new LinkedList<Integer>();
 
-    public NumericalDigitSpanView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public NumericalDigitSpanView(Activity context, String _user) {
+        super(context, _user);
 
     }
     @Override

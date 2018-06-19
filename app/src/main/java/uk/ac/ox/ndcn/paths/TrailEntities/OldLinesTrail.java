@@ -16,8 +16,8 @@ import uk.ac.ox.ndcn.paths.MazeEntities.timePoint;
  */
 public class OldLinesTrail extends OldLines {
     public ArrayList<Long> switches = new ArrayList<Long>();
-    public OldLinesTrail(String _user, DropboxAPI mDBApi, int w, int h, SharedPreferences prefs, String _game){
-        super(_user, mDBApi, w, h, prefs, _game);
+    public OldLinesTrail(String _user, int w, int h, SharedPreferences prefs, String _game){
+        super(_user, w, h, prefs, _game);
     }
 
 
