@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ListView;
-
+import android.widget.EditText;
 
 import com.dropbox.core.android.Auth;
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mLoggedIn) {
 
                 } else {
-                    Auth.startOAuth2Authentication(getApplicationContext(), getString(R.string.APP_KEY));
+                    Auth.startOAuth2Authentication(MainActivity.this, getString(R.string.APP_KEY));
                 }
             }
         });
@@ -149,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
             prefs.edit().putString("access-token", accessToken).apply();
             setLoggedIn(true);
         } else {
-            showToast("Couldn't authenticate with Dropbox:");
-            Log.i(TAG, "Error authenticating");
+            showToast("Please authenticate with Dropbox:");
+            Log.i(TAG, "Not Authenticated");
         }
     }
 
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     private void setLoggedIn(boolean loggedIn) {
         mLoggedIn = loggedIn;
         if (loggedIn) {
-            mSubmit.setText("Logged In");
+            mSubmit.setText("Logged In To Dropbox");
             mSubmit.setEnabled(false);
         } else {
             mSubmit.setText("Link with Dropbox");
@@ -200,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
     public void launch(String GameID){
         Intent intent = new Intent(this, SettingsActivity.class);
         //Intent intent = new Intent(this, GameLauncher.class);
-        /*EditText usernameField = (EditText)findViewById(R.id.editText);
+        EditText usernameField = (EditText)findViewById(R.id.editText);
         String username = usernameField == null ? "" : usernameField.getText().toString();
 
-        intent.putExtra("EXTRA_UID", username);*/
+        intent.putExtra("EXTRA_UID", username);
         intent.putExtra("EXTRA_GAMEID", GameID);
         startActivity(intent);
     }

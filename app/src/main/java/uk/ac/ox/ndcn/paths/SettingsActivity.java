@@ -27,6 +27,7 @@ public class SettingsActivity extends Activity {
         SettingsFragment frag = new SettingsFragment();
         Bundle args = new Bundle();
         args.putString("EXTRA_GAMEID", getIntent().getStringExtra("EXTRA_GAMEID"));
+        args.putString("EXTRA_UID", getIntent().getStringExtra("EXTRA_UID"));
         frag.setArguments(args);
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, frag)

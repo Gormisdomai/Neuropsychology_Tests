@@ -35,7 +35,7 @@ public class TrailLine extends Entity {
     Paint line = new Paint();
     Paint greyline = new Paint();
     Path path = new Path();
-    TrailData points = new TrailData();
+    TrailData points;
     World world;
     OldLines history;
     public long start = -1;
@@ -47,7 +47,8 @@ public class TrailLine extends Entity {
 
 
 
-    public TrailLine(World _world, OldLines _history, Trail _t) {
+    public TrailLine(World _world, TrailData points, OldLines _history, Trail _t) {
+        this.points = points;
         world = _world;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(world.getContext());
         line.setAntiAlias(true);
