@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 
-import com.dropbox.client2.DropboxAPI;
+import java.util.ArrayList;
 
 import uk.ac.ox.ndcn.paths.ComplexFigureEntities.CanvasLine;
 import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.DoneButton;
@@ -18,6 +18,7 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.MazeEntities.OldLines;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 import uk.ac.ox.ndcn.paths.R;
+import uk.ac.ox.ndcn.paths.Util.InstructionSlideShow;
 
 /**
  * Created by appdev on 25/04/2016.
@@ -27,38 +28,45 @@ public class ComplexFigureView extends World implements DoneHandler {
     public CanvasLine line;
     public static final String GAMEID = "COMPLEXFIGUREVIEW";
     static final int COPY = 0;
-    static final int REMEMBER = 1;
-    static final int DONE = 2;
+    static final int REMEMBER = 2;
+    static final int INSTRUCT = 1;
+    static final int DONE = 3;
     int state = COPY;
-    int w,h;
     DoneButton doneButton;
     Image image;
     OldLines history;
     int timeout;
 
+    ArrayList instructions2 = new ArrayList();
+
     public ComplexFigureView(Activity context, String _user) {
         super(context, _user);
+        //TODO Instructions
         figure = BitmapFactory.decodeResource(getResources(), R.drawable.complex_figure);
-
+        instructions.add(R.drawable.cf1);
+        instructions2.add(R.drawable.cf2);
 
     }
     @Override
-    public void init (int _w, int _h) {
-        w = _w;
-        h = _h;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        image = (Image)add(new Image(0, 0, (int)(0.8*w), h, figure));
-        setBackgroundColor(Color.WHITE);
-        history = (OldLines) add(new OldLines(user, w, h, prefs, GAMEID));
-        line = (CanvasLine) add(new CanvasLine(this, history));
-        doneButton = (DoneButton)add(new DoneButton(0,  h-w/16, Math.max(h / 7, 100), w/16, this));
-        timeout = Integer.parseInt(prefs.getString("complex_figure_timing", "240"))* 1000;
+    public void init () {
+        if (state == 0) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            image = (Image) add(new Image(0, 0, (int) (0.8 * w), h, figure));
+            setBackgroundColor(Color.WHITE);
+            history = (OldLines) add(new OldLines(user, w, h, prefs, GAMEID));
+            line = (CanvasLine) add(new CanvasLine(this, history));
+            doneButton = (DoneButton) add(new DoneButton(0, h - w / 16, Math.max(h / 7, 100), w / 16, this));
+            timeout = Integer.parseInt(prefs.getString("complex_figure_timing", "240")) * 1000;
+        }
+        else {
+            done("");
+        }
     }
     public void done(String s){
         nextState();
     }
-    protected void updateLogic(){
-        super.updateLogic();
+    protected void update(){
+        super.update();
 
         if ((line.start != -1) && (System.currentTimeMillis() - line.start > timeout)){ // Four minutes
             nextState();
@@ -72,6 +80,12 @@ public class ComplexFigureView extends World implements DoneHandler {
                 remove(doneButton);
                 remove(history);
                 remove(line);
+                state += 1;
+                setBackgroundColor(Color.BLACK);
+                add(new InstructionSlideShow(w,h,instructions2,this, getResources()));
+                break;
+            case INSTRUCT:
+                setBackgroundColor(Color.WHITE);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 //reset the line and the image
                 history = (OldLines) add(new OldLines(user, w, h, prefs, GAMEID));

@@ -17,13 +17,12 @@ import uk.ac.ox.ndcn.paths.R;
 public class InstructionSlideShow extends Entity implements DoneHandler{
     int stage;
     ArrayList<Integer> images;
-    DoneHandler handler;
     int w,h;
     World world;
     Resources res;
     public void done(String s){
         if (stage == -1){
-            handler.done(s);
+            world.instructionsDone(s);
         }
         else {
             world.entities.clear();
@@ -32,16 +31,13 @@ public class InstructionSlideShow extends Entity implements DoneHandler{
         }
     }
 
-    public InstructionSlideShow(int w, int h, ArrayList<Integer> images, DoneHandler handler, World world, Resources res){
+    public InstructionSlideShow(int w, int h, ArrayList<Integer> images, World world, Resources res){
         this.images = images;
-        this.handler = handler;
         this.world = world;
         this.w = w;
         this.h = h;
         this.res = res;
-        stage = images.size()-2;
-        world.add(new ClickableImage(0,0,w,h, BitmapFactory.decodeResource(res, images.get(images.size()-1)), this));
-
-
+        stage = images.size()-1;
+        done("");
     }
 }

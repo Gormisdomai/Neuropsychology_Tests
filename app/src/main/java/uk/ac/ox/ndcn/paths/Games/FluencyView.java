@@ -8,8 +8,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.dropbox.client2.DropboxAPI;
-
 import uk.ac.ox.ndcn.paths.GeneralEntities.OpacityBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.Timer;
@@ -17,26 +15,24 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 import uk.ac.ox.ndcn.paths.FluencyEntities.Trail;
 import uk.ac.ox.ndcn.paths.FluencyEntities.TrailLine;
 import uk.ac.ox.ndcn.paths.FluencyEntities.OldLines;
+import uk.ac.ox.ndcn.paths.R;
 
 public class FluencyView extends World {
 
     public TrailLine line;
-    public int w;
-    public int h;
     private int timeout = 240000;
     public static final String GAMEID = "FLUENCYVIEW";
     private Timer timer;
 
     public FluencyView(Activity context, String _user) {
         super(context, _user);
+        instructions.add(R.drawable.df);
 
     }
     @Override
-    public void init (int _w, int _h) {
+    public void init () {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        w = _w;
-        h = _h;
         Trail t = new Trail(5, true, 0, 0, w, h, this);
         line = (TrailLine)add(new TrailLine(this, new OldLines(user, w, h, prefs, GAMEID), t));
         add(t);
@@ -49,8 +45,8 @@ public class FluencyView extends World {
 
     private int fadestep = 0;
     @Override
-    protected void updateLogic(){
-        super.updateLogic();
+    protected void update(){
+        super.update();
         if(line.start != -1 && !timer.running && fadestep == 0){
             timer.start(timeout);
         }
