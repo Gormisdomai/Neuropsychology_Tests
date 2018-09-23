@@ -90,7 +90,7 @@ public class TolView extends World implements DoneHandler {
         randomiseDifficulty = prefs.getBoolean("tol_randomise_difficulty", false);
         numTrials = Integer.parseInt(prefs.getString("tol_num_trials", "5"));
 
-
+        currentDifficulty = minDifficulty;
         Random random = new Random();
         int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
         float [] colors = {Color.RED, Color.BLUE, Color.GREEN};

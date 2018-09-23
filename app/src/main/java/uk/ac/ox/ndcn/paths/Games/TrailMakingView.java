@@ -24,7 +24,7 @@ public class TrailMakingView extends World {
     private uk.ac.ox.ndcn.paths.TrailEntities.TrailLine line;
     public TrailMakingView(Activity context, String _user) {
         super(context, _user);
-        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("trail_letters", false)){
+        if (!PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("trail_letters", false)){
 
             instructions.add(R.drawable.tml2);
             instructions.add(R.drawable.tml1);
