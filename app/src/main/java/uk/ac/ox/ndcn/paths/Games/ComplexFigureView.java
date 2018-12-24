@@ -76,7 +76,7 @@ public class ComplexFigureView extends World implements DoneHandler {
         switch (state){
             case COPY:
                 line.done("");
-                history.saveImage(getContext());
+                history.saveImage("figure_from_memory", getContext());
                 remove(doneButton);
                 remove(history);
                 remove(line);
@@ -96,7 +96,7 @@ public class ComplexFigureView extends World implements DoneHandler {
                 break;
             case REMEMBER:
                 line.done("");
-                history.saveImage(getContext());
+                history.saveImage("figure_from_memory", getContext());
                 state += 1;
                 add(new OpacityBox(0, 0, w, h));
                 add(new TextBox(w / 2, h / 2, "Done"));

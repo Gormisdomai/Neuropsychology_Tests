@@ -127,6 +127,21 @@ public class OldLines extends Entity {
         }
     }
 
+    public void saveImage(String name, Context context){
+        try{
+            UploadFile.saveImg( name + "_" + user + "_" + game + "_" + System.currentTimeMillis() + ".png", cache, context);
+        }
+        catch (DropboxException e){
+            Log.d("err:", "dropb");
+            Toast.makeText(context, "Failed to save image to Dropbox", Toast.LENGTH_LONG).show();
+        }
+        catch (IOException e){
+            Log.d("err:", "io");
+
+            Toast.makeText(context, "Failed to write image to Local Storage", Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void add(Path p, PathData d){
         paths.add(p);
         pathDatas.add(d);
