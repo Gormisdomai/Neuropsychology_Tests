@@ -76,7 +76,7 @@ public class ComplexFigureView extends World implements DoneHandler {
         switch (state){
             case COPY:
                 line.done("");
-                history.saveImage("figure_from_memory", getContext());
+                history.saveImage("figure_copy", getContext());
                 remove(doneButton);
                 remove(history);
                 remove(line);
