@@ -138,6 +138,12 @@ public class TolView extends World implements DoneHandler {
         }
     }
 
+    @Override
+    public void saveAndQuit(){
+        log.save();
+        super.saveAndQuit();
+    }
+
     public void update(){
         super.update();
     }

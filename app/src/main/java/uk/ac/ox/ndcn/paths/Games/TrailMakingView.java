@@ -64,4 +64,9 @@ public class TrailMakingView extends World {
 
         }
     }
+    @Override
+    public void saveAndQuit(){
+        line.setGameOver();
+        super.saveAndQuit();
+    }
 }

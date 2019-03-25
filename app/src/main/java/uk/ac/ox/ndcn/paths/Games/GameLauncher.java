@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 
-import uk.ac.ox.ndcn.paths.MainActivity;
+import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 
 /**
  * Created by appdev on 25/04/2016.
  */
 public class GameLauncher extends Activity{
-    View view;
+    World view;
 
+    @Override
+    public void onBackPressed(){
+        view.saveAndQuit();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

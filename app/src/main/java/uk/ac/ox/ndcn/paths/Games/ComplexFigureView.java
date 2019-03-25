@@ -72,6 +72,26 @@ public class ComplexFigureView extends World implements DoneHandler {
             nextState();
         }
     }
+
+    @Override
+    public void saveAndQuit(){
+        switch (state){
+            case COPY:
+                line.done("");
+                history.saveImage("figure_copy", getContext());
+                break;
+            case INSTRUCT:
+                break;
+            case REMEMBER:
+                line.done("");
+                history.saveImage("figure_from_memory", getContext());
+                break;
+            case DONE:
+                break;
+        }
+        super.saveAndQuit();
+    }
+
     public void nextState(){
         switch (state){
             case COPY:

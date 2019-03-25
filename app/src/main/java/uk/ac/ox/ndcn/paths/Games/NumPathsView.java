@@ -79,5 +79,10 @@ public class NumPathsView extends World {
 
         }
     }
+    @Override
+    public void saveAndQuit(){
+        line.setGameOver();
+        super.saveAndQuit();
+    }
 
 }

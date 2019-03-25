@@ -118,6 +118,8 @@ public abstract class World extends View{
 
     }
 
+
+
     public Entity add(Entity entity) {
         addBuffer.add(entity);
         return entity;
@@ -133,4 +135,5 @@ public abstract class World extends View{
     public void finish(){
         a.finish();
     }
+    public void saveAndQuit() {finish();}
 }

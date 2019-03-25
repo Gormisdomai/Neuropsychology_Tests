@@ -150,4 +150,9 @@ public class SwitchPathsView extends World {
 
         }
     }
+    @Override
+    public void saveAndQuit(){
+        line.setGameOver();
+        super.saveAndQuit();
+    }
 }
