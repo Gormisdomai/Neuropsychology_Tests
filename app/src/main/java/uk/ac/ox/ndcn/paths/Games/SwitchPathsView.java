@@ -1,7 +1,6 @@
 package uk.ac.ox.ndcn.paths.Games;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,14 +8,11 @@ import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 
-import com.dropbox.client2.DropboxAPI;
-
-import org.w3c.dom.Text;
-
 import uk.ac.ox.ndcn.paths.GeneralEntities.OpacityBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.TextBox;
 import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 import uk.ac.ox.ndcn.paths.MazeEntities.*;
+import uk.ac.ox.ndcn.paths.R;
 
 /**
  * Created by appdev on 02/10/15.
@@ -26,23 +22,26 @@ public class SwitchPathsView extends World {
     public MazeLine line;
     public TextBox textBox;
     private int timeout = 240000;
-    public int w, h;
     public static final String GAMEID = "SWITCHPATHSVIEW";
     public int score = 0;
 
-    public SwitchPathsView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public SwitchPathsView(Activity context, String _user) {
+
+        super(context, _user);
+        instructions.add(R.drawable.os4);
+        instructions.add(R.drawable.os3);
+        instructions.add(R.drawable.os2);
+        instructions.add(R.drawable.os1);
+
     }
 
     @Override
-    public void init (int w, int h) {
+    public void init () {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         int r = Integer.parseInt(prefs.getString("blob_radius", "6"));
         int switchPoints = Integer.parseInt(prefs.getString("switch_points", "2"));
         if (switchPoints ==1) switchPoints = 2;
-        this.w = w;
-        this.h = h;
-        line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLinesSwitch(user, mDBApi, w, h, prefs, GAMEID))));
+        line = (MazeLine) add(new MazeLine(this, (OldLines) add(new OldLinesSwitch(user, w, h, prefs, GAMEID))));
         line.greyline.setColor(Color.BLACK);
         add(new Goal(w / 16, h / 8, r * h / 64, new GoalBehaviour() {
             @Override
@@ -137,9 +136,9 @@ public class SwitchPathsView extends World {
 
     private int fadestep = 0;
     @Override
-    protected void updateLogic(){
+    protected void update(){
         textBox.text = "" + score;
-        super.updateLogic();
+        super.update();
         if ((line.start != -1) && (System.currentTimeMillis() - line.start > timeout)){ // Four minutes
             if (fadestep == 0) {
                 line.setGameOver();
@@ -150,5 +149,10 @@ public class SwitchPathsView extends World {
             }
 
         }
+    }
+    @Override
+    public void saveAndQuit(){
+        line.setGameOver();
+        super.saveAndQuit();
     }
 }

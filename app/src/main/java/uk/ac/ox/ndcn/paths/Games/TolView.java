@@ -13,9 +13,8 @@ import android.preference.PreferenceManager;
 
 import uk.ac.ox.ndcn.paths.ButtonsAndKeyPads.DoneButton;
 
-import com.dropbox.client2.DropboxAPI;
-
 import uk.ac.ox.ndcn.paths.Loggers.ToLLogger;
+import uk.ac.ox.ndcn.paths.R;
 import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.TargetPeg;
 import uk.ac.ox.ndcn.paths.TowerOfLondonEntities.Peg;
 import uk.ac.ox.ndcn.paths.GeneralEntities.DoneHandler;
@@ -30,8 +29,6 @@ import uk.ac.ox.ndcn.paths.Util.Image;
 public class TolView extends World implements DoneHandler {
 
     private int state = 0;
-    public int w;
-    public int h;
     public static final String GAMEID = "TolView";
     public boolean drag_lock = false;
 
@@ -44,9 +41,11 @@ public class TolView extends World implements DoneHandler {
     Image target;
 
 
-    public TolView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
-
+    public TolView(Activity context, String _user) {
+        super(context, _user);
+        instructions.add(R.drawable.tol3);
+        instructions.add(R.drawable.tol2);
+        instructions.add(R.drawable.tol1);
 
     }
     private boolean inited = false;
@@ -61,12 +60,10 @@ public class TolView extends World implements DoneHandler {
     private int repeatDifficulty = 2;
     private int countTilNextDifficulty = 0;
     @Override
-    public void init (int _w, int _h) {
+    public void init () {
         log = new ToLLogger(GAMEID, user, this.getContext());
         inited = true;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        w = _w;
-        h = _h;
         /*float [][] pegData = {
                 {1f/4,3},
                 {1f/2,1},
@@ -93,7 +90,7 @@ public class TolView extends World implements DoneHandler {
         randomiseDifficulty = prefs.getBoolean("tol_randomise_difficulty", false);
         numTrials = Integer.parseInt(prefs.getString("tol_num_trials", "5"));
 
-
+        currentDifficulty = minDifficulty;
         Random random = new Random();
         int[] heights = {random.nextInt(4) + 1, random.nextInt(4) + 2, random.nextInt(4) + 1};
         float [] colors = {Color.RED, Color.BLUE, Color.GREEN};
@@ -141,8 +138,14 @@ public class TolView extends World implements DoneHandler {
         }
     }
 
-    public void updateLogic(){
-        super.updateLogic();
+    @Override
+    public void saveAndQuit(){
+        log.save();
+        super.saveAndQuit();
+    }
+
+    public void update(){
+        super.update();
     }
 
     private Random random = new Random();

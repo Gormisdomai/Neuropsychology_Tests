@@ -23,21 +23,17 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 public class NumericalDigitSpanView extends World {
 
 
-    public int w;
-    public int h;
     public static final String GAMEID = "NumericalDigitSpanView";
     public Keypad k;
     public LinkedList<Integer> target = new LinkedList<Integer>();
 
-    public NumericalDigitSpanView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public NumericalDigitSpanView(Activity context, String _user) {
+        super(context, _user);
 
     }
     @Override
-    public void init (int _w, int _h) {
+    public void init () {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        w = _w;
-        h = _h;
         int [] s = {1, 2, 3};
 
         for (int index = 0; index < s.length; index++)

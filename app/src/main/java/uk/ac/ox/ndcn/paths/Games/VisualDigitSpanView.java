@@ -19,22 +19,19 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.World;
 public class VisualDigitSpanView extends World {
 
 
-    public int w;
-    public int h;
     public static final String GAMEID = "VisualDigitSpanView";
     private Noisepad k;
 
-    public VisualDigitSpanView(Activity context, String _user, DropboxAPI mDBApi) {
-        super(context, _user, mDBApi);
+    public VisualDigitSpanView(Activity context, String _user) {
+        super(context, _user);
 
     }
     @Override
-    public void init (int _w, int _h) {
+    public void init () {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        w = _w;
-        h = _h;
-        k = (Noisepad)add(new Noisepad(Integer.parseInt(prefs.getString("shape_span_count", "9")), false, 0, 0, _w, _h, this, 1500));
+
+        k = (Noisepad)add(new Noisepad(Integer.parseInt(prefs.getString("shape_span_count", "9")), false, 0, 0, w, h, this, 1500));
     }
 
     @Override

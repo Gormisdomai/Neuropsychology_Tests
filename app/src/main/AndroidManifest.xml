@@ -21,11 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Dropbox AuthActivity -->
         <activity
-            android:name="com.dropbox.client2.android.AuthActivity"
+            android:name="com.dropbox.core.android.AuthActivity"
             android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
+
+                <!-- Insert your app key after “db-  ...” -->
                 <data android:scheme="db-xnht8p5v29tsxfn" />
 
                 <action android:name="android.intent.action.VIEW" />

@@ -41,7 +41,6 @@ public class OldLines extends Entity {
 
     public ArrayList<PathData> pathDatas = new ArrayList<PathData>();
 
-    private DropboxAPI mDBApi;
 
     public Bitmap cache;
     private Canvas cacheCanvas = new Canvas();
@@ -50,7 +49,7 @@ public class OldLines extends Entity {
 
     public String user;
 
-    public OldLines(String _user, DropboxAPI mDBApi, int w, int h, SharedPreferences prefs, String _game){
+    public OldLines(String _user, int w, int h, SharedPreferences prefs, String _game){
 
         game = _game;
 
@@ -65,7 +64,6 @@ public class OldLines extends Entity {
         line.setStrokeCap(Paint.Cap.ROUND);
         line.setStrokeWidth(Integer.parseInt(prefs.getString("line_width", "6")));
         user = _user;
-        this.mDBApi = mDBApi;
 
     }
 
@@ -101,7 +99,7 @@ public class OldLines extends Entity {
     public void save(Context context) {
         Log.d("Saving OldLines:", this.toString());
         try{
-            UploadFile.save(user + "_" + game + "_" + System.currentTimeMillis() + ".txt", this.toString(), mDBApi, context);
+            UploadFile.save(user + "_" + game + "_" + System.currentTimeMillis() + ".txt", this.toString(), context);
         }
         catch (DropboxException e){
             Log.e("saving", "Failed to save to dropbox");
@@ -116,7 +114,22 @@ public class OldLines extends Entity {
 
     public void saveImage(Context context){
         try{
-            UploadFile.saveImg(user + "_" + game + "_" + System.currentTimeMillis() + ".png", cache, mDBApi, context);
+            UploadFile.saveImg(user + "_" + game + "_" + System.currentTimeMillis() + ".png", cache, context);
+        }
+        catch (DropboxException e){
+            Log.d("err:", "dropb");
+            Toast.makeText(context, "Failed to save image to Dropbox", Toast.LENGTH_LONG).show();
+        }
+        catch (IOException e){
+            Log.d("err:", "io");
+
+            Toast.makeText(context, "Failed to write image to Local Storage", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void saveImage(String name, Context context){
+        try{
+            UploadFile.saveImg( name + "_" + user + "_" + game + "_" + System.currentTimeMillis() + ".png", cache, context);
         }
         catch (DropboxException e){
             Log.d("err:", "dropb");

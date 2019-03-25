@@ -44,7 +44,7 @@ public class Logger {
 
     public void upload(Context context) {
         try{
-            UploadFile.save(logName + "_" + System.currentTimeMillis() + ".txt", log, mDBApi, context);
+            UploadFile.save(logName + "_" + System.currentTimeMillis() + ".txt", log, context);
         }
         catch (DropboxException e){
             Log.e("saving", "Failed to save to dropbox");

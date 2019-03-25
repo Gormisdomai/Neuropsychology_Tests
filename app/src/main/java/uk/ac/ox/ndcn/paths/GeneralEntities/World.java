@@ -2,18 +2,15 @@ package uk.ac.ox.ndcn.paths.GeneralEntities;
 
 import android.app.Activity;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.content.Context;
-
-import com.dropbox.client2.DropboxAPI;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
+import uk.ac.ox.ndcn.paths.R;
+import uk.ac.ox.ndcn.paths.Util.InstructionSlideShow;
 
 /**
  * Created by appdev on 20/08/15.
@@ -21,23 +18,30 @@ import uk.ac.ox.ndcn.paths.GeneralEntities.Entity;
 public abstract class World extends View{
     public static final String GAMEID = null;
 
+    public boolean tutorial_mode;
+
     public ArrayList<Entity> entities = new ArrayList<Entity>();
+
+
+    protected ArrayList<Integer> instructions = new ArrayList<>();
 
     public String user = "";
 
-    public DropboxAPI mDBApi;
-
     public Activity a;
+
+
+    public int w;
+
+    public int h;
 
     public World(Activity context){
         super(context);
         a = context;
     }
-    public World(Activity context, String _user, DropboxAPI mDBApi){
+    public World(Activity context, String _user){
         super(context);
         a = context;
         user = _user;
-        this.mDBApi = mDBApi;
         setWillNotDraw(false);
         this.postInvalidate();
     }
@@ -71,8 +75,20 @@ public abstract class World extends View{
         removeBuffer.clear();
         entities.addAll(addBuffer);
         addBuffer.clear();
+        if (tutorial_mode) return;
+        update();
+
     }
 
+    protected void update(){
+
+    }
+
+    public void instructionsDone(String s){
+        entities.clear();
+        tutorial_mode = false;
+        init();
+    }
 
 
     @Override
@@ -91,12 +107,18 @@ public abstract class World extends View{
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w,h, oldw,oldh);
         removeAll(entities);
-        init(w, h);
+        this.w = w;
+        this.h = h;
+        tutorial_mode = true;
+        add(new InstructionSlideShow(w, h, instructions, this, getResources()));
+
     }
 
-    public void init(int w, int h){
+    public void init(){
 
     }
+
+
 
     public Entity add(Entity entity) {
         addBuffer.add(entity);
@@ -113,4 +135,5 @@ public abstract class World extends View{
     public void finish(){
         a.finish();
     }
+    public void saveAndQuit() {finish();}
 }

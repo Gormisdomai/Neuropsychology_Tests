@@ -21,6 +21,7 @@ import uk.ac.ox.ndcn.paths.Games.NumPathsView;
 
 public class SettingsFragment extends PreferenceFragment{
     private String GameID;
+    //TODO display warning if access token is null and fail gracefully elswhere even if warning is ignored
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class SettingsFragment extends PreferenceFragment{
         /*EditText usernameField = (EditText)findViewById(R.id.editText);
         String username = usernameField == null ? "" : usernameField.getText().toString();
         */
-        String username = ""; //TODO input username or thread it through from the main homepage
+        String username = this.getArguments().getString("EXTRA_UID"); //TODO input username or thread it through from the main homepage
 
         intent.putExtra("EXTRA_UID", username);
         intent.putExtra("EXTRA_GAMEID", GameID);

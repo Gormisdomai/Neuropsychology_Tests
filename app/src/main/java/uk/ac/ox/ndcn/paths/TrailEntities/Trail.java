@@ -23,7 +23,7 @@ import android.util.Log;
  * Created by appdev on 27/03/2016.
  */
 public class Trail extends Entity {
-
+    private TrailData data;
     private Queue<TrailGoal> goals = new LinkedList<TrailGoal>();
     private ArrayList<TrailGoal> toRemove = new ArrayList<TrailGoal>();
     private class TrailGoal extends Circle implements idable {
@@ -50,6 +50,7 @@ public class Trail extends Entity {
         }
 
         public void handleCollision(Entity e){
+            if (toRemove.size() > 0) data.addPair(toRemove.get(toRemove.size() -1).getId(), this.getId(), usesLetters);
             if (goals.peek() == this || (allowsIllegalMoves && !toRemove.contains(this))) {
                 goals.remove(this);
                 toRemove.add(this);
@@ -59,6 +60,7 @@ public class Trail extends Entity {
                 if (goals.size() == 1){
                     goals.peek().collisionType = CollisionType.GOAL;
                 }
+
             }
         }
     }
@@ -69,8 +71,9 @@ public class Trail extends Entity {
     private boolean usesLetters;
     private World world;
     private boolean allowsIllegalMoves;
-    public Trail(int _length, boolean _usesLetters, boolean _allowsIllegalMoves, float _x, float _y, float _width, float _height, World _world){
+    public Trail(int _length, boolean _usesLetters, boolean _allowsIllegalMoves, float _x, float _y, float _width, float _height, TrailData data, World _world){
 
+        this.data = data;
         length = _length;
         usesLetters = _usesLetters;
         allowsIllegalMoves = _allowsIllegalMoves;
